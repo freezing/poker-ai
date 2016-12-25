@@ -27,7 +27,7 @@ public class StandardPokerInput implements PokerInput {
     @Override
     public Optional<PokerState> getNextState() throws PokerInputException {
         pokerMessageHandler.handle(new StringPokerMessage(
-                String.format("Use the following format: '%s'", parser.getFormat()))
+                String.format("Use the following format:\n%s", parser.getFormat()))
         );
         if (sc.hasNext()) {
             return Optional.of(this.parser.parse(sc.nextLine()));

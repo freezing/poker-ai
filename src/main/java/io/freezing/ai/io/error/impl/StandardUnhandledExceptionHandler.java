@@ -15,6 +15,7 @@ public class StandardUnhandledExceptionHandler implements UnhandledExceptionHand
     @Override
     public void handle(Exception e) {
         e.printStackTrace(writer);
+        writer.flush();
     }
 
     @Override

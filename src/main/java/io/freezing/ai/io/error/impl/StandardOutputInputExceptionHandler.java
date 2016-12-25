@@ -18,6 +18,7 @@ public class StandardOutputInputExceptionHandler implements PokerInputExceptionH
     public void handle(ParseException exception) {
         try {
             this.writer.write(String.format("%s\n", exception.getMessage()));
+            this.writer.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
