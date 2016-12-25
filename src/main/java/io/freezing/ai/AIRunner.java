@@ -2,8 +2,7 @@ package io.freezing.ai;
 
 import io.freezing.ai.bot.PokerBot;
 import io.freezing.ai.bot.action.BotAction;
-import io.freezing.ai.bot.impl.texas_holdem.simple.SimpleTexasHoldemPokerBot;
-import io.freezing.ai.config.TexasHoldemConfig;
+import io.freezing.ai.bot.impl.texasholdem.simple.SimpleTexasHoldEmPokerBot;
 import io.freezing.ai.domain.PokerState;
 import io.freezing.ai.exception.input.PokerInputException;
 import io.freezing.ai.io.error.impl.StandardOutputInputExceptionHandler;
@@ -16,6 +15,8 @@ import io.freezing.ai.io.message.impl.StandardPokerMessageHandler;
 import io.freezing.ai.io.output.PokerOutput;
 import io.freezing.ai.io.output.StandardOutputBotActionHandler;
 import io.freezing.ai.io.parser.impl.TexasHoldemInputParser;
+import io.freezing.ai.rules.impl.texasholdem.TexasHoldEmHandEvaluator;
+import io.freezing.ai.rules.impl.texasholdem.TexasHoldEmRules;
 
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -82,8 +83,8 @@ public class AIRunner implements AutoCloseable {
         UnhandledExceptionHandler unhandledExceptionHandler = new StandardUnhandledExceptionHandler(System.err);
 
         // Create Simple AI Bot
-        TexasHoldemConfig config = new TexasHoldemConfig(60000, 0, 10, 1000, "Simple Bot");
-        PokerBot bot = new SimpleTexasHoldemPokerBot(config);
+        TexasHoldEmRules rules = new TexasHoldEmRules(60000, 0, 10, 1000, new TexasHoldEmHandEvaluator());
+        PokerBot bot = new SimpleTexasHoldEmPokerBot(rules);
 
         // Initialize AI Runner
         AIRunner ai = new AIRunner(input, output, exceptionHandler, unhandledExceptionHandler, bot);

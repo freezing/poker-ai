@@ -1,6 +1,9 @@
-package io.freezing.ai.config;
+package io.freezing.ai.rules.impl.texasholdem;
 
-public class TexasHoldemConfig {
+import io.freezing.ai.rules.HandEvaluator;
+import io.freezing.ai.rules.PokerRules;
+
+public class TexasHoldEmRules implements PokerRules {
     // Maximum time in milliseconds that the player has in its time bank
     private final int timeBankMs;
 
@@ -13,45 +16,39 @@ public class TexasHoldemConfig {
     // Amount of chips that each player starts the game with
     private final int startingStack;
 
-    // The name of your bot during this match
-    private final String botName;
+    // Ranking logic for Hand and Table
+    private final HandEvaluator handEvaluator;
 
-    public TexasHoldemConfig(int timeBankMs, int timePerMoveMs, int handsPerLevel, int startingStack, String botName) {
+    public TexasHoldEmRules(int timeBankMs, int timePerMoveMs, int handsPerLevel, int startingStack, TexasHoldEmHandEvaluator handEvaluator) {
         this.timeBankMs = timeBankMs;
         this.timePerMoveMs = timePerMoveMs;
         this.handsPerLevel = handsPerLevel;
         this.startingStack = startingStack;
-        this.botName = botName;
+        this.handEvaluator = handEvaluator;
     }
 
+    @Override
     public int getTimeBankMs() {
         return timeBankMs;
     }
 
+    @Override
     public int getTimePerMoveMs() {
         return timePerMoveMs;
     }
 
+    @Override
     public int getHandsPerLevel() {
         return handsPerLevel;
     }
 
+    @Override
     public int getStartingStack() {
         return startingStack;
     }
 
-    public String getBotName() {
-        return botName;
-    }
-
     @Override
-    public String toString() {
-        return "TexasHoldemConfig{" +
-                "timeBankMs=" + timeBankMs +
-                ", timePerMoveMs=" + timePerMoveMs +
-                ", handsPerLevel=" + handsPerLevel +
-                ", startingStack=" + startingStack +
-                ", botName='" + botName + '\'' +
-                '}';
+    public HandEvaluator getHandEvaluator() {
+        return handEvaluator;
     }
 }

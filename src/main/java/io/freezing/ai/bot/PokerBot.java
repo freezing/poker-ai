@@ -5,4 +5,5 @@ import io.freezing.ai.domain.PokerState;
 
 public interface PokerBot {
     BotAction nextAction(PokerState state);
+    String getName();
 }
