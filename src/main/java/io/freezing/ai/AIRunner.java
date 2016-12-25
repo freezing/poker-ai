@@ -5,7 +5,7 @@ import io.freezing.ai.bot.action.BotAction;
 import io.freezing.ai.bot.impl.texas_holdem.simple.SimpleTexasHoldemPokerBot;
 import io.freezing.ai.config.TexasHoldemConfig;
 import io.freezing.ai.domain.PokerState;
-import io.freezing.ai.exception.parse.PokerInputException;
+import io.freezing.ai.exception.input.PokerInputException;
 import io.freezing.ai.io.error.impl.StandardOutputInputExceptionHandler;
 import io.freezing.ai.io.error.UnhandledExceptionHandler;
 import io.freezing.ai.io.error.impl.StandardUnhandledExceptionHandler;

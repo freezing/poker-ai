@@ -1,7 +1,7 @@
 package io.freezing.ai.io.input.stdin;
 
 import io.freezing.ai.domain.PokerState;
-import io.freezing.ai.exception.parse.PokerInputException;
+import io.freezing.ai.exception.input.PokerInputException;
 import io.freezing.ai.io.input.PokerInput;
 import io.freezing.ai.io.message.PokerMessageHandler;
 import io.freezing.ai.io.message.impl.StringPokerMessage;

@@ -1,4 +1,4 @@
-package io.freezing.ai.exception.parse;
+package io.freezing.ai.exception.input;
 
 public abstract class PokerInputException extends Exception {
     public PokerInputException(String message) {

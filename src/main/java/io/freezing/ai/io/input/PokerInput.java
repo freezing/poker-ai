@@ -1,7 +1,7 @@
 package io.freezing.ai.io.input;
 
 import io.freezing.ai.domain.PokerState;
-import io.freezing.ai.exception.parse.PokerInputException;
+import io.freezing.ai.exception.input.PokerInputException;
 
 import java.util.Optional;
 
