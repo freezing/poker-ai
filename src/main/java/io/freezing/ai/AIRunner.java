@@ -5,7 +5,10 @@ import io.freezing.ai.bot.action.BotAction;
 import io.freezing.ai.bot.impl.texas_holdem.simple.SimpleTexasHoldemPokerBot;
 import io.freezing.ai.config.TexasHoldemConfig;
 import io.freezing.ai.domain.PokerState;
+import io.freezing.ai.exception.parse.PokerInputException;
+import io.freezing.ai.io.error.StandardOutputInputExceptionHandler;
 import io.freezing.ai.io.input.PokerInput;
+import io.freezing.ai.io.error.PokerInputExceptionHandler;
 import io.freezing.ai.io.input.stdin.StandardPokerInput;
 import io.freezing.ai.io.output.PokerOutput;
 import io.freezing.ai.io.output.StandardOutputBotActionHandler;
@@ -19,27 +22,33 @@ public class AIRunner implements AutoCloseable {
 
     private final PokerInput input;
     private final PokerOutput output;
+    private final PokerInputExceptionHandler exceptionHandler;
     private final PokerBot bot;
 
-    public AIRunner(PokerInput input, PokerOutput output, PokerBot bot) {
+    public AIRunner(PokerInput input, PokerOutput output, PokerInputExceptionHandler exceptionHandler, PokerBot bot) {
         this.input = input;
         this.output = output;
+        this.exceptionHandler = exceptionHandler;
         this.bot = bot;
     }
 
     public void run() {
         while (true) {
-            // TODO: Can I do something nice as using Extractors in Scala?
-            Optional<PokerState> stateOpt = this.input.getNextState();
+            try {
+                // TODO: Can I do something nice as using Extractors in Scala?
+                Optional<PokerState> stateOpt = this.input.getNextState();
 
-            if (stateOpt.isPresent()) {
-                PokerState state = stateOpt.get();
-                BotAction action = bot.nextAction(state);
+                if (stateOpt.isPresent()) {
+                    PokerState state = stateOpt.get();
+                    BotAction action = bot.nextAction(state);
 
-            } else {
-                // No more input
-                logger.info("Shutting down the AI Runner. No more input expected.");
-                return;
+                } else {
+                    // No more input
+                    logger.info("Shutting down the AI Runner. No more input expected.");
+                    return;
+                }
+            } catch (PokerInputException e) {
+
             }
         }
     }
@@ -52,14 +61,15 @@ public class AIRunner implements AutoCloseable {
 
     public static void main(String[] args) throws Exception {
         PokerInput input = new StandardPokerInput(System.in, new TexasHoldemInputParser());
-        TexasHoldemConfig config = new TexasHoldemConfig(60000, 0, 10, 1000, "Simple Bot");
         PokerOutput output = new StandardOutputBotActionHandler(System.out);
+        PokerInputExceptionHandler exceptionHandler = new StandardOutputInputExceptionHandler(System.err);
 
         // Create Simple AI Bot
+        TexasHoldemConfig config = new TexasHoldemConfig(60000, 0, 10, 1000, "Simple Bot");
         PokerBot bot = new SimpleTexasHoldemPokerBot(config);
 
         // Initialize AI Runner
-        AIRunner ai = new AIRunner(input, output, bot);
+        AIRunner ai = new AIRunner(input, output, exceptionHandler, bot);
 
         // Run AI
         ai.run();

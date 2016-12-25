@@ -14,7 +14,7 @@ public class PokerState {
     private final Table table;
 
     // Total amount of chips currently in the pot (plus sidepot)
-    private final int maxPot;
+    private final int totalPot;
 
     // The amount of chips the bot has to put in to call
     private final int amountToCall;
@@ -25,12 +25,12 @@ public class PokerState {
     // My hand
     private final Hand myHand;
 
-    public PokerState(int roundNumber, int smallBlind, int bigBlind, Table table, int maxPot, int amountToCall, int myStack, Hand myHand) {
+    public PokerState(int roundNumber, int smallBlind, int bigBlind, Table table, int totalPot, int amountToCall, int myStack, Hand myHand) {
         this.roundNumber = roundNumber;
         this.smallBlind = smallBlind;
         this.bigBlind = bigBlind;
         this.table = table;
-        this.maxPot = maxPot;
+        this.totalPot = totalPot;
         this.amountToCall = amountToCall;
         this.myStack = myStack;
         this.myHand = myHand;
@@ -52,8 +52,8 @@ public class PokerState {
         return table;
     }
 
-    public int getMaxPot() {
-        return maxPot;
+    public int getTotalPot() {
+        return totalPot;
     }
 
     public int getAmountToCall() {

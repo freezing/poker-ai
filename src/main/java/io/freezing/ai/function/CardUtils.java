@@ -1,4 +1,6 @@
-package io.freezing.ai.domain;
+package io.freezing.ai.function;
+
+import io.freezing.ai.domain.CardHeight;
 
 public class CardUtils {
     public static int getRank(CardHeight height) {

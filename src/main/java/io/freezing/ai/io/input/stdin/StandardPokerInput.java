@@ -1,6 +1,7 @@
 package io.freezing.ai.io.input.stdin;
 
 import io.freezing.ai.domain.PokerState;
+import io.freezing.ai.exception.parse.PokerInputException;
 import io.freezing.ai.io.input.PokerInput;
 import io.freezing.ai.io.parser.PokerInputParser;
 
@@ -18,7 +19,7 @@ public class StandardPokerInput implements PokerInput {
     }
 
     @Override
-    public Optional<PokerState> getNextState() {
+    public Optional<PokerState> getNextState() throws PokerInputException {
         if (sc.hasNext()) {
             return Optional.of(this.parser.parse(sc.nextLine()));
         } else {

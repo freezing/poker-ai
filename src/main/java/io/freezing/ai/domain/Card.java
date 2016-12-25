@@ -16,4 +16,9 @@ public class Card {
     public CardHeight getHeight() {
         return height;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Card(suit = %s, Height = %s)", suit.toString(), height.toString());
+    }
 }
