@@ -1,6 +1,7 @@
-package io.freezing.ai.io.input;
+package io.freezing.ai.io.input.stdin;
 
 import io.freezing.ai.domain.PokerState;
+import io.freezing.ai.io.input.PokerInput;
 import io.freezing.ai.io.parser.PokerInputParser;
 
 import java.io.InputStream;

@@ -6,7 +6,7 @@ import io.freezing.ai.bot.impl.texas_holdem.simple.SimpleTexasHoldemPokerBot;
 import io.freezing.ai.config.TexasHoldemConfig;
 import io.freezing.ai.domain.PokerState;
 import io.freezing.ai.io.input.PokerInput;
-import io.freezing.ai.io.input.StandardPokerInput;
+import io.freezing.ai.io.input.stdin.StandardPokerInput;
 import io.freezing.ai.io.output.PokerOutput;
 import io.freezing.ai.io.output.StandardOutputBotActionHandler;
 import io.freezing.ai.io.parser.impl.TexasHoldemInputParser;
