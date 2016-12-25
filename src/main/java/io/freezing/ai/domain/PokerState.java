@@ -67,4 +67,18 @@ public class PokerState {
     public Hand getMyHand() {
         return myHand;
     }
+
+    @Override
+    public String toString() {
+        return "PokerState{" +
+                "roundNumber=" + roundNumber +
+                ", smallBlind=" + smallBlind +
+                ", bigBlind=" + bigBlind +
+                ", table=" + table +
+                ", totalPot=" + totalPot +
+                ", amountToCall=" + amountToCall +
+                ", myStack=" + myStack +
+                ", myHand=" + myHand +
+                '}';
+    }
 }

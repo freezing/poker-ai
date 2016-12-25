@@ -43,4 +43,15 @@ public class TexasHoldemConfig {
     public String getBotName() {
         return botName;
     }
+
+    @Override
+    public String toString() {
+        return "TexasHoldemConfig{" +
+                "timeBankMs=" + timeBankMs +
+                ", timePerMoveMs=" + timePerMoveMs +
+                ", handsPerLevel=" + handsPerLevel +
+                ", startingStack=" + startingStack +
+                ", botName='" + botName + '\'' +
+                '}';
+    }
 }

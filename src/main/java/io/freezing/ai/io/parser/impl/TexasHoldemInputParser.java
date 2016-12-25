@@ -8,6 +8,8 @@ import io.freezing.ai.exception.parse.ParseException;
 import io.freezing.ai.function.CardParseUtils;
 import io.freezing.ai.io.parser.PokerInputParser;
 
+import java.util.logging.Logger;
+
 /**
  * Implementation of the PokerState parser. Format:
  * RoundNumber SmallBlind BigBlind TotalPot AmountToCall MyStack MyHand Table
@@ -28,6 +30,8 @@ import io.freezing.ai.io.parser.PokerInputParser;
  * 1 50 100 250 100 1000 S12 D4 H4 HT DJ CA S7
  */
 public class TexasHoldemInputParser implements PokerInputParser {
+    private static final Logger logger = Logger.getLogger(TexasHoldemInputParser.class.getName());
+
     private static final int EXPECTED_TOKENS = 13;
 
     @Override
@@ -41,6 +45,8 @@ public class TexasHoldemInputParser implements PokerInputParser {
             );
         }
 
+        logger.fine(String.format("Parsing state from String: %s", stateString));
+
         int roundNumber  = parseInt(values, 0);
         int smallBlind   = parseInt(values, 1);
         int bigBlind     = parseInt(values, 2);
@@ -50,7 +56,9 @@ public class TexasHoldemInputParser implements PokerInputParser {
         Hand myHand      = new Hand(parseCards(values, new int[] {6, 7}));
         Table table      = new Table(parseCards(values, new int[] {8, 9, 10, 11, 12}));
 
-        return new PokerState(roundNumber, smallBlind, bigBlind, table, totalPot, amountToCall, myStack, myHand);
+        PokerState state = new PokerState(roundNumber, smallBlind, bigBlind, table, totalPot, amountToCall, myStack, myHand);
+        logger.info(String.format("Parsed state: %s", state.toString()));
+        return state;
     }
 
     private int parseInt(String values[], int idx) throws ParseException {
