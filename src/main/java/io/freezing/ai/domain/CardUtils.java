@@ -19,4 +19,15 @@ public class CardUtils {
             default:    throw new RuntimeException(String.format("Unknown CardHeight: %s", height.toString()));
         }
     }
+
+    public static CardHeight getHeight(int rank) {
+        for (CardHeight height : CardHeight.values()) {
+            if (getRank(height) == rank) {
+                return height;
+            }
+        }
+        throw new IllegalArgumentException(
+                String.format("Couldn't find the corresponding CardHeight for the given rank: %d", rank)
+        );
+    }
 }

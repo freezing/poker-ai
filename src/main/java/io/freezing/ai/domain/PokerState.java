@@ -10,11 +10,8 @@ public class PokerState {
     // The current size of the big blind
     private final int bigBlind;
 
-    // The name of the player that currently has the dealer button (gets the small blind)
-    private final String onButton;
-
     // The cards that are currently on the table
-    Table table;
+    private final Table table;
 
     // Total amount of chips currently in the pot (plus sidepot)
     private final int maxPot;
@@ -22,16 +19,52 @@ public class PokerState {
     // The amount of chips the bot has to put in to call
     private final int amountToCall;
 
-    public PokerState(int roundNumber, int smallBlind, int bigBlind, String onButton, int maxPot, int amountToCall) {
+    // The amount of chips that I have left in the stack
+    private final int myStack;
+
+    // My hand
+    private final Hand myHand;
+
+    public PokerState(int roundNumber, int smallBlind, int bigBlind, Table table, int maxPot, int amountToCall, int myStack, Hand myHand) {
         this.roundNumber = roundNumber;
         this.smallBlind = smallBlind;
         this.bigBlind = bigBlind;
-        this.onButton = onButton;
+        this.table = table;
         this.maxPot = maxPot;
         this.amountToCall = amountToCall;
+        this.myStack = myStack;
+        this.myHand = myHand;
     }
 
     public int getRoundNumber() {
         return roundNumber;
+    }
+
+    public int getSmallBlind() {
+        return smallBlind;
+    }
+
+    public int getBigBlind() {
+        return bigBlind;
+    }
+
+    public Table getTable() {
+        return table;
+    }
+
+    public int getMaxPot() {
+        return maxPot;
+    }
+
+    public int getAmountToCall() {
+        return amountToCall;
+    }
+
+    public int getMyStack() {
+        return myStack;
+    }
+
+    public Hand getMyHand() {
+        return myHand;
     }
 }
