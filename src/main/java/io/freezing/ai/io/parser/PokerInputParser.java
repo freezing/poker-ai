@@ -5,4 +5,5 @@ import io.freezing.ai.exception.parse.ParseException;
 
 public interface PokerInputParser {
     PokerState parse(String line) throws ParseException;
+    String getFormat();
 }

@@ -1,6 +1,7 @@
-package io.freezing.ai.io.error;
+package io.freezing.ai.io.error.impl;
 
 import io.freezing.ai.exception.parse.ParseException;
+import io.freezing.ai.io.error.PokerInputExceptionHandler;
 
 import java.io.IOException;
 import java.io.OutputStream;

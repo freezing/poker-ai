@@ -6,7 +6,9 @@ import io.freezing.ai.bot.impl.texas_holdem.simple.SimpleTexasHoldemPokerBot;
 import io.freezing.ai.config.TexasHoldemConfig;
 import io.freezing.ai.domain.PokerState;
 import io.freezing.ai.exception.parse.PokerInputException;
-import io.freezing.ai.io.error.StandardOutputInputExceptionHandler;
+import io.freezing.ai.io.error.impl.StandardOutputInputExceptionHandler;
+import io.freezing.ai.io.error.UnhandledExceptionHandler;
+import io.freezing.ai.io.error.impl.StandardUnhandledExceptionHandler;
 import io.freezing.ai.io.input.PokerInput;
 import io.freezing.ai.io.error.PokerInputExceptionHandler;
 import io.freezing.ai.io.input.stdin.StandardPokerInput;
@@ -22,13 +24,20 @@ public class AIRunner implements AutoCloseable {
 
     private final PokerInput input;
     private final PokerOutput output;
-    private final PokerInputExceptionHandler exceptionHandler;
     private final PokerBot bot;
 
-    public AIRunner(PokerInput input, PokerOutput output, PokerInputExceptionHandler exceptionHandler, PokerBot bot) {
+    // Error handlers
+    private final PokerInputExceptionHandler exceptionHandler;
+    private final UnhandledExceptionHandler unhandledExceptionHandler;
+
+    public AIRunner(PokerInput input, PokerOutput output,
+                    PokerInputExceptionHandler exceptionHandler,
+                    UnhandledExceptionHandler unhandledExceptionHandler,
+                    PokerBot bot) {
         this.input = input;
         this.output = output;
         this.exceptionHandler = exceptionHandler;
+        this.unhandledExceptionHandler = unhandledExceptionHandler;
         this.bot = bot;
     }
 
@@ -41,14 +50,16 @@ public class AIRunner implements AutoCloseable {
                 if (stateOpt.isPresent()) {
                     PokerState state = stateOpt.get();
                     BotAction action = bot.nextAction(state);
-
+                    output.handle(action);
                 } else {
                     // No more input
                     logger.info("Shutting down the AI Runner. No more input expected.");
                     return;
                 }
             } catch (PokerInputException e) {
-
+                exceptionHandler.handle(e);
+            } catch (Exception e) {
+                unhandledExceptionHandler.handle(e);
             }
         }
     }
@@ -63,13 +74,14 @@ public class AIRunner implements AutoCloseable {
         PokerInput input = new StandardPokerInput(System.in, new TexasHoldemInputParser());
         PokerOutput output = new StandardOutputBotActionHandler(System.out);
         PokerInputExceptionHandler exceptionHandler = new StandardOutputInputExceptionHandler(System.err);
+        UnhandledExceptionHandler unhandledExceptionHandler = new StandardUnhandledExceptionHandler(System.err);
 
         // Create Simple AI Bot
         TexasHoldemConfig config = new TexasHoldemConfig(60000, 0, 10, 1000, "Simple Bot");
         PokerBot bot = new SimpleTexasHoldemPokerBot(config);
 
         // Initialize AI Runner
-        AIRunner ai = new AIRunner(input, output, exceptionHandler, bot);
+        AIRunner ai = new AIRunner(input, output, exceptionHandler, unhandledExceptionHandler, bot);
 
         // Run AI
         ai.run();
