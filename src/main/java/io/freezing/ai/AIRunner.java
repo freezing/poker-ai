@@ -12,6 +12,7 @@ import io.freezing.ai.io.error.impl.StandardUnhandledExceptionHandler;
 import io.freezing.ai.io.input.PokerInput;
 import io.freezing.ai.io.error.PokerInputExceptionHandler;
 import io.freezing.ai.io.input.stdin.StandardPokerInput;
+import io.freezing.ai.io.message.impl.StandardPokerMessageHandler;
 import io.freezing.ai.io.output.PokerOutput;
 import io.freezing.ai.io.output.StandardOutputBotActionHandler;
 import io.freezing.ai.io.parser.impl.TexasHoldemInputParser;
@@ -71,7 +72,11 @@ public class AIRunner implements AutoCloseable {
     }
 
     public static void main(String[] args) throws Exception {
-        PokerInput input = new StandardPokerInput(System.in, new TexasHoldemInputParser());
+        PokerInput input = new StandardPokerInput(
+                System.in,
+                new TexasHoldemInputParser(),
+                new StandardPokerMessageHandler<>(System.out)
+        );
         PokerOutput output = new StandardOutputBotActionHandler(System.out);
         PokerInputExceptionHandler exceptionHandler = new StandardOutputInputExceptionHandler(System.err);
         UnhandledExceptionHandler unhandledExceptionHandler = new StandardUnhandledExceptionHandler(System.err);

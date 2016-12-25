@@ -5,10 +5,9 @@ import io.freezing.ai.bot.action.BotAction;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.io.Writer;
 
 public class StandardOutputBotActionHandler implements PokerOutput {
-    private final Writer writer;
+    private final PrintWriter writer;
 
     public StandardOutputBotActionHandler(OutputStream os) {
         this.writer = new PrintWriter(os);
@@ -18,6 +17,7 @@ public class StandardOutputBotActionHandler implements PokerOutput {
     public void handle(BotAction action) throws IOException {
         String output = String.format("%s\n", action.toString());
         this.writer.write(output);
+        this.writer.flush();
     }
 
     @Override
