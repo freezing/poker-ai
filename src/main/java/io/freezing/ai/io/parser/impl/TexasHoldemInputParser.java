@@ -37,7 +37,7 @@ public class TexasHoldemInputParser implements PokerInputParser {
     @Override
     public PokerState parse(String stateString) throws ParseException {
         // Split by whitespace
-        String values[]  = stateString.split("\\w");
+        String values[]  = stateString.trim().split("\\s");
 
         if (values.length != 13) {
             throw new ParseException(
