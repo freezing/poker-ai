@@ -103,4 +103,7 @@ public class AIRunner implements AutoCloseable {
         // AI has finished. No more input expected. Close IO.
         ai.close();
     }
+
+    // For testing:
+    // 1 2 50 100 250 100 1000 ST DA SA D3 D4 CT S8
 }

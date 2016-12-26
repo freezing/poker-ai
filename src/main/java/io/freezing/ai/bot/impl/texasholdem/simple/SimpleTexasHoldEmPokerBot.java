@@ -11,7 +11,6 @@ import io.freezing.ai.domain.*;
 import io.freezing.ai.function.CardUtils;
 import io.freezing.ai.function.RandomUtils;
 import io.freezing.ai.rules.impl.texasholdem.TexasHoldEmRules;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Random;
 
@@ -55,15 +54,32 @@ public class SimpleTexasHoldEmPokerBot implements PokerBot {
         while (monteCarloIterations-- > 0) {
             // Shuffle the existing array due to performance reasons (it's not important to keep previous states)
             RandomUtils.shuffleArray(hiddenCards, rnd, 2 * hiddenCardCodes.length * 2);
-            assignCards(opponents, hiddenCards);
+            assignCardsToOpponents(opponents, hiddenCards);
+            Table monteCarloTable = assignCardsToTable(opponents.length * 2, hiddenCards, table);
 
             // Find winner hand (by reference)
-            if (findWinner(table, hand, opponents).getWholeHand().getHand() == hand) wins++;
+            if (findWinner(monteCarloTable, hand, opponents).getWholeHand().getHand() == hand) wins++;
         }
         return (double)(wins) / (double)(config.getMonteCarloIterations());
     }
 
-    private void assignCards(Hand[] opponents, Card[] cards) {
+    private Table assignCardsToTable(int offset, Card[] hiddenCards, Table table) {
+        // Desired total number of cards is 5
+        if (table.getCards().length == rules.getFinalTableLength()) return table;
+
+        Card[] cards = new Card[rules.getFinalTableLength()];
+        int storeIdx = 0;
+        for (Card c : table.getCards()) cards[storeIdx++] = c;
+
+        // Add remaining cards
+        while (storeIdx < cards.length) {
+            cards[storeIdx++] = hiddenCards[offset++];
+        }
+
+        return new Table(cards);
+    }
+
+    private void assignCardsToOpponents(Hand[] opponents, Card[] cards) {
         for (int i = 0; i < opponents.length; i++) {
             // We could create hand mutable, but I don't want to go there. I'll see if it's important later
             opponents[i] = new Hand(new Card[]{

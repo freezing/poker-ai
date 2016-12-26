@@ -63,6 +63,7 @@ public class TexasHoldemInputParser implements PokerInputParser {
         nextIdx += 2;
 
         Table table                 = new Table(parseCards(values, new int[] {nextIdx, nextIdx + 1, nextIdx + 2, nextIdx + 3, nextIdx + 4}));
+        table                 = new Table(parseCards(values, new int[] {nextIdx, nextIdx + 1, nextIdx + 2}));
         // nextIdx += 5
 
         PokerState state = new PokerState(roundNumber, totalNumberOfPlayers, smallBlind, bigBlind, table, totalPot, amountToCall, myStack, myHand);

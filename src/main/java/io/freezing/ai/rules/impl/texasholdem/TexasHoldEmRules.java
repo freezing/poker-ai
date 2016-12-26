@@ -51,4 +51,6 @@ public class TexasHoldEmRules implements PokerRules {
     public HandEvaluator getHandEvaluator() {
         return handEvaluator;
     }
+
+    public int getFinalTableLength() { return 5; }
 }
