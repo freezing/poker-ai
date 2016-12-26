@@ -8,6 +8,7 @@ import io.freezing.ai.exception.parse.ParseException;
 import io.freezing.ai.function.CardParseUtils;
 import org.junit.Assert;
 import org.junit.Test;
+import sun.plugin2.gluegen.runtime.CPU;
 
 public class TexasHoldEmHandEvaluatorTest {
     private TexasHoldEmHandEvaluator evaluator = new TexasHoldEmHandEvaluator();
@@ -303,5 +304,52 @@ public class TexasHoldEmHandEvaluatorTest {
         Assert.assertTrue(evalHand1.getRank() < evalHand2.getRank());
         Assert.assertTrue(evalHand2.getRank() < evalHand3.getRank());
         Assert.assertTrue(evalHand3.getRank() == evalHand4.getRank());
+    }
+
+    @Test
+    public void testTwoPairOrdering() throws ParseException {
+        Table table = new Table(new Card[] {
+                CardParseUtils.parseCard("S2"), // Two   of Spades
+                CardParseUtils.parseCard("H5"), // Five  of Hearts
+                CardParseUtils.parseCard("S6"), // Six   of Spades
+                CardParseUtils.parseCard("DT"), // Ten   of Diamonds
+                CardParseUtils.parseCard("C9")  // Nine  of Clubs
+        });
+
+        Hand hand1 = new Hand(new Card[] {
+                CardParseUtils.parseCard("C2"), // Two  of Clubs
+                CardParseUtils.parseCard("C5")  // Five of Clubs
+        });
+
+        Hand hand2 = new Hand(new Card[] {
+                CardParseUtils.parseCard("C2"), // Two  of Clubs
+                CardParseUtils.parseCard("C6")  // Six  of Clubs
+        });
+
+        Hand hand3 = new Hand(new Card[] {
+                CardParseUtils.parseCard("C2"), // Two  of Clubs
+                CardParseUtils.parseCard("CT")  // Ten  of Clubs
+        });
+
+        Hand hand4 = new Hand(new Card[] {
+                CardParseUtils.parseCard("CT"), // Ten  of Clubs
+                CardParseUtils.parseCard("H9")  // Nine of Hearts
+        });
+
+        Hand hand5 = new Hand(new Card[] {
+                CardParseUtils.parseCard("ST"), // Ten  of Spades
+                CardParseUtils.parseCard("S9")  // Nine of Spades
+        });
+
+        EvaluatedHand evalHand1 = evaluator.evaluate(hand1, table);
+        EvaluatedHand evalHand2 = evaluator.evaluate(hand2, table);
+        EvaluatedHand evalHand3 = evaluator.evaluate(hand3, table);
+        EvaluatedHand evalHand4 = evaluator.evaluate(hand4, table);
+        EvaluatedHand evalHand5 = evaluator.evaluate(hand5, table);
+
+        Assert.assertTrue(evalHand1.getRank() < evalHand2.getRank());
+        Assert.assertTrue(evalHand2.getRank() < evalHand3.getRank());
+        Assert.assertTrue(evalHand3.getRank() < evalHand4.getRank());
+        Assert.assertTrue(evalHand4.getRank() == evalHand5.getRank());
     }
 }

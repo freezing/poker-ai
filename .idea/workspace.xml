@@ -48,8 +48,8 @@
       <file leaf-file-name="TexasHoldEmHandEvaluatorTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/io/freezing/ai/rules/impl/texasholdem/TexasHoldEmHandEvaluatorTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="478">
-              <caret line="299" column="67" selection-start-line="299" selection-start-column="67" selection-end-line="299" selection-end-column="67" />
+            <state relative-caret-position="638">
+              <caret line="350" column="35" selection-start-line="350" selection-start-column="35" selection-end-line="350" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -84,8 +84,8 @@
       <file leaf-file-name="HandCategory.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/freezing/ai/domain/HandCategory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="64">
-              <caret line="4" column="53" selection-start-line="4" selection-start-column="53" selection-end-line="4" selection-end-column="53" />
+            <state relative-caret-position="32">
+              <caret line="2" column="26" selection-start-line="2" selection-start-column="26" selection-end-line="2" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -302,33 +302,7 @@
       <recent name="io.freezing.ai.exception.input" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.TexasHoldEmHandEvaluatorTest.testThreeOfAKindOrdering">
-    <configuration default="false" name="TexasHoldEmHandEvaluatorTest.testFourOfAKindOrdering" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="io.freezing.ai.rules.impl.texasholdem.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="poker" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="io.freezing.ai.rules.impl.texasholdem" />
-      <option name="MAIN_CLASS_NAME" value="io.freezing.ai.rules.impl.texasholdem.TexasHoldEmHandEvaluatorTest" />
-      <option name="METHOD_NAME" value="testFourOfAKindOrdering" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="JUnit.TexasHoldEmHandEvaluatorTest.testTwoPairOrdering">
     <configuration default="false" name="TexasHoldEmHandEvaluatorTest.testFullHouseOrdering" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -420,6 +394,32 @@
       <option name="PACKAGE_NAME" value="io.freezing.ai.rules.impl.texasholdem" />
       <option name="MAIN_CLASS_NAME" value="io.freezing.ai.rules.impl.texasholdem.TexasHoldEmHandEvaluatorTest" />
       <option name="METHOD_NAME" value="testThreeOfAKindOrdering" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="TexasHoldEmHandEvaluatorTest.testTwoPairOrdering" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="io.freezing.ai.rules.impl.texasholdem.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="poker" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="io.freezing.ai.rules.impl.texasholdem" />
+      <option name="MAIN_CLASS_NAME" value="io.freezing.ai.rules.impl.texasholdem.TexasHoldEmHandEvaluatorTest" />
+      <option name="METHOD_NAME" value="testTwoPairOrdering" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -724,19 +724,19 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="JUnit.TexasHoldEmHandEvaluatorTest.testFourOfAKindOrdering" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.TexasHoldEmHandEvaluatorTest.testFullHouseOrdering" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.TexasHoldEmHandEvaluatorTest.testFlushOrdering" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.TexasHoldEmHandEvaluatorTest.testStraightOrdering" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.TexasHoldEmHandEvaluatorTest.testThreeOfAKindOrdering" />
+      <item index="0" class="java.lang.String" itemvalue="JUnit.TexasHoldEmHandEvaluatorTest.testFullHouseOrdering" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.TexasHoldEmHandEvaluatorTest.testFlushOrdering" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.TexasHoldEmHandEvaluatorTest.testStraightOrdering" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.TexasHoldEmHandEvaluatorTest.testThreeOfAKindOrdering" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.TexasHoldEmHandEvaluatorTest.testTwoPairOrdering" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.TexasHoldEmHandEvaluatorTest.testThreeOfAKindOrdering" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.TexasHoldEmHandEvaluatorTest.testStraightOrdering" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.TexasHoldEmHandEvaluatorTest.testFlushOrdering" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.TexasHoldEmHandEvaluatorTest.testFullHouseOrdering" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.TexasHoldEmHandEvaluatorTest.testFourOfAKindOrdering" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.TexasHoldEmHandEvaluatorTest.testTwoPairOrdering" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.TexasHoldEmHandEvaluatorTest.testThreeOfAKindOrdering" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.TexasHoldEmHandEvaluatorTest.testStraightOrdering" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.TexasHoldEmHandEvaluatorTest.testFlushOrdering" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.TexasHoldEmHandEvaluatorTest.testFullHouseOrdering" />
       </list>
     </recent_temporary>
   </component>
@@ -804,12 +804,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="TexasHoldEmHandEvaluatorTest_testFlushOrdering - 2016.12.26 at 12h 27m 46s.xml">
-      <configuration name="TexasHoldEmHandEvaluatorTest.testFlushOrdering" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="TexasHoldEmHandEvaluatorTest_testFlushOrdering - 2016.12.26 at 12h 27m 57s.xml">
-      <configuration name="TexasHoldEmHandEvaluatorTest.testFlushOrdering" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="TexasHoldEmHandEvaluatorTest_testStraightOrdering - 2016.12.26 at 12h 35m 52s.xml">
       <configuration name="TexasHoldEmHandEvaluatorTest.testStraightOrdering" configurationId="JUnit" />
     </history-entry>
@@ -833,6 +827,12 @@
     </history-entry>
     <history-entry file="TexasHoldEmHandEvaluatorTest_testThreeOfAKindOrdering - 2016.12.26 at 15h 31m 07s.xml">
       <configuration name="TexasHoldEmHandEvaluatorTest.testThreeOfAKindOrdering" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="TexasHoldEmHandEvaluatorTest_testThreeOfAKindOrdering - 2016.12.26 at 15h 31m 15s.xml">
+      <configuration name="TexasHoldEmHandEvaluatorTest.testThreeOfAKindOrdering" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="TexasHoldEmHandEvaluatorTest_testTwoPairOrdering - 2016.12.26 at 15h 39m 08s.xml">
+      <configuration name="TexasHoldEmHandEvaluatorTest.testTwoPairOrdering" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
@@ -1333,16 +1333,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/freezing/ai/domain/HandCategory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="64">
-          <caret line="4" column="53" selection-start-line="4" selection-start-column="53" selection-end-line="4" selection-end-column="53" />
+        <state relative-caret-position="32">
+          <caret line="2" column="26" selection-start-line="2" selection-start-column="26" selection-end-line="2" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/io/freezing/ai/rules/impl/texasholdem/TexasHoldEmHandEvaluatorTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="478">
-          <caret line="299" column="67" selection-start-line="299" selection-start-column="67" selection-end-line="299" selection-end-column="67" />
+        <state relative-caret-position="638">
+          <caret line="350" column="35" selection-start-line="350" selection-start-column="35" selection-end-line="350" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
