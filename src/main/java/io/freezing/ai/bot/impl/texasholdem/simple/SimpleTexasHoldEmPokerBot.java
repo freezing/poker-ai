@@ -14,18 +14,16 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class SimpleTexasHoldEmPokerBot implements PokerBot {
     private final TexasHoldEmRules rules;
+    private final SimpleTexasHoldEmPokerBotConfig config;
 
-    public SimpleTexasHoldEmPokerBot(TexasHoldEmRules rules) {
+    public SimpleTexasHoldEmPokerBot(TexasHoldEmRules rules, SimpleTexasHoldEmPokerBotConfig config) {
         this.rules = rules;
+        this.config = config;
     }
 
     @Override
     public BotAction nextAction(PokerState state) {
-        // TODO: Implement, first just calculate the probability
-        Table table = state.getTable();
-        Hand myHand = state.getMyHand();
-
-        double winProbability = calculateWinProbability(table, myHand);
+        double winProbability = calculateWinProbability(state.getTable(), state.getMyHand(), state.getTotalNumberOfPlayers());
         BotActionRationale rationale = new SimpleTexasHoldEmRationale(winProbability);
 
         if (winProbability > 90) return new RaiseAction(state.getMyStack(), rationale);
@@ -34,7 +32,10 @@ public class SimpleTexasHoldEmPokerBot implements PokerBot {
         else return new FoldAction(rationale);
     }
 
-    private double calculateWinProbability(Table table, Hand hand) {
+    private double calculateWinProbability(Table table, Hand hand, int totalNumberOfPlayers) {
+        Hand opponents[] = new Hand[totalNumberOfPlayers];
+
+
         throw new NotImplementedException();
     }
 

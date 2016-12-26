@@ -15,15 +15,6 @@ public class TexasHoldEmEval {
     private static final long TWO_PAIR_PATTERNS[];
     private static final long PAIR_PATTERNS[];
 
-    private static final Map<CardSuit, Long> SHIFTS;
-    static {
-        SHIFTS = new HashMap<>();
-        SHIFTS.put(CardSuit.CLUBS, 0L);
-        SHIFTS.put(CardSuit.DIAMONDS, 16L);
-        SHIFTS.put(CardSuit.HEARTS, 32L);
-        SHIFTS.put(CardSuit.SPADES, 48L);
-    }
-
     static {
         CATEGORY_RANK_CODES = new HashMap<>();
         STRAIGHT_FLUSH_PATTERNS = createStraightFlushPatterns();
@@ -400,7 +391,7 @@ public class TexasHoldEmEval {
     }
 
     public static long createCardBitmask(int cardNumber, CardSuit suit) {
-        return (1L << cardNumber) << SHIFTS.get(suit);
+        return (1L << cardNumber) << (CardUtils.getSuiteCode(suit) * 16);
     }
 
     public static void main(String[] args) {

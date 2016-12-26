@@ -1,8 +1,19 @@
 package io.freezing.ai.function;
 
 import io.freezing.ai.domain.CardHeight;
+import io.freezing.ai.domain.CardSuit;
 
 public class CardUtils {
+    public static int getSuiteCode(CardSuit suit) {
+        switch (suit) {
+            case CLUBS:    return 0;
+            case SPADES:   return 1;
+            case DIAMONDS: return 2;
+            case HEARTS:   return 3;
+            default:       throw new IllegalStateException(String.format("Unknown CardSuit found: %s", suit.toString()));
+        }
+    }
+
     public static int getRank(CardHeight height) {
         switch (height) {
             case DEUCE: return 0;

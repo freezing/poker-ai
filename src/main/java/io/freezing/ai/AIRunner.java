@@ -3,6 +3,7 @@ package io.freezing.ai;
 import io.freezing.ai.bot.PokerBot;
 import io.freezing.ai.bot.action.BotAction;
 import io.freezing.ai.bot.impl.texasholdem.simple.SimpleTexasHoldEmPokerBot;
+import io.freezing.ai.bot.impl.texasholdem.simple.SimpleTexasHoldEmPokerBotConfig;
 import io.freezing.ai.domain.PokerState;
 import io.freezing.ai.exception.input.PokerInputException;
 import io.freezing.ai.io.error.impl.StandardOutputInputExceptionHandler;
@@ -84,7 +85,7 @@ public class AIRunner implements AutoCloseable {
 
         // Create Simple AI Bot
         TexasHoldEmRules rules = new TexasHoldEmRules(60000, 0, 10, 1000, new TexasHoldEmHandEvaluator());
-        PokerBot bot = new SimpleTexasHoldEmPokerBot(rules);
+        PokerBot bot = new SimpleTexasHoldEmPokerBot(rules, new SimpleTexasHoldEmPokerBotConfig(10000));
 
         // Initialize AI Runner
         AIRunner ai = new AIRunner(input, output, exceptionHandler, unhandledExceptionHandler, bot);

@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 /**
  * Implementation of the PokerState parser. Format:
  * RoundNumber TotalNumberOfPlayers SmallBlind BigBlind TotalPot AmountToCall MyStack MyHand Table
- * 
+ *
  * RoundNumber          - Int
  * TotalNumberOfPlayers - Int
  * SmallBlind           - Int
