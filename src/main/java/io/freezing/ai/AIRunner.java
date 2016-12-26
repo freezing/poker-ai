@@ -85,7 +85,7 @@ public class AIRunner implements AutoCloseable {
 
         // Create Simple AI Bot
         TexasHoldEmRules rules = new TexasHoldEmRules(60000, 0, 10, 1000, new TexasHoldEmHandEvaluator());
-        PokerBot bot = new SimpleTexasHoldEmPokerBot(rules, new SimpleTexasHoldEmPokerBotConfig(10000));
+        PokerBot bot = new SimpleTexasHoldEmPokerBot(rules, new SimpleTexasHoldEmPokerBotConfig(10000, 186544L));
 
         // Initialize AI Runner
         AIRunner ai = new AIRunner(input, output, exceptionHandler, unhandledExceptionHandler, bot);
