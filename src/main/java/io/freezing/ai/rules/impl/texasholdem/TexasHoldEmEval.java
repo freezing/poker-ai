@@ -11,6 +11,7 @@ public class TexasHoldEmEval {
     private static final long FOUR_OF_A_KIND_PATTERNS[];
     private static final long FULL_HOUSE_PATTERNS[];
     private static final long THREE_OF_A_KIND_PATTERNS[];
+    private static final long TWO_PAIR_PATTERNS[];
     private static final long PAIR_PATTERNS[];
 
     private static final Map<CardSuit, Long> SHIFTS;
@@ -28,6 +29,7 @@ public class TexasHoldEmEval {
         FOUR_OF_A_KIND_PATTERNS = createFourOfAKindPatterns();
         FULL_HOUSE_PATTERNS = createFullHousePatterns();
         THREE_OF_A_KIND_PATTERNS = createThreeOfAKindPatterns();
+        TWO_PAIR_PATTERNS = createTwoPairPatterns();
         PAIR_PATTERNS = createPairPatterns();
     }
 
@@ -56,7 +58,9 @@ public class TexasHoldEmEval {
         Optional<Integer> threeKindOpt = findAndEvaluate(hand, HandCategory.THREE_OF_A_KIND, THREE_OF_A_KIND_PATTERNS);
         if (threeKindOpt.isPresent()) return threeKindOpt.get();
 
-        
+        // Try TWO_PAIRS
+        Optional<Integer> twoPairOpt = findAndEvaluate(hand, HandCategory.TWO_PAIR, TWO_PAIR_PATTERNS);
+        if (twoPairOpt.isPresent()) return twoPairOpt.get();
 
         // Try PAIR
         Optional<Integer> pairOpt = findAndEvaluate(hand, HandCategory.PAIR, PAIR_PATTERNS);
@@ -81,10 +85,10 @@ public class TexasHoldEmEval {
         // Evaluation result is 32 bits = 0x0V0PPKKK,
         // where P represent category strength
         // K represents the kicker code.
-        // Therefore, encode actual category rank by shifting it by 16, except when it's FULL_HOUSE, then shift by 12,
-        // because it requires more 3 x P and 2 x K.
+        // Therefore, encode actual category rank by shifting it by 16, except when it's FULL_HOUSE or TWO_PAIR, then shift by 12,
+        // because it requires 3 x P and 2 x K, i.e. more combinations for the category rank.
         int categoryRankCode = CATEGORY_RANK_CODES.get(categoryPattern) << 12;
-        if (handCategory != HandCategory.FULL_HOUSE) categoryRankCode <<= 4;
+        if (handCategory != HandCategory.FULL_HOUSE && handCategory != HandCategory.TWO_PAIR) categoryRankCode <<= 4;
 
         // Remove cards that determine the category
         long leftovers = hand ^ categoryPattern;
@@ -116,6 +120,39 @@ public class TexasHoldEmEval {
                     long pattern = c1 | c2;
                     patterns.add(pattern);
                     CATEGORY_RANK_CODES.put(pattern, cardNum);
+                }
+            }
+        }
+
+        long[] patternsArray = new long[patterns.size()];
+        for (int i = 0; i < patternsArray.length; i++) patternsArray[i] = patterns.get(i);
+        return patternsArray;
+    }
+
+    private static long[] createTwoPairPatterns() {
+        List<Long> patterns = new ArrayList<>();
+        int suitsLength = CardSuit.values().length;
+
+        for (int i = 0; i < 13; i++) {
+            for (int j = i + 1; j < 13; j++) {
+                for (int si1 = 0; si1 < suitsLength; si1++) {
+                    for (int si2 = si1 + 1; si2 < suitsLength; si2++) {
+                        long c1 = createCardBitmask(i, CardSuit.values()[si1]);
+                        long c2 = createCardBitmask(i, CardSuit.values()[si2]);
+
+                        // Find other 2 cards
+                        for (int sj1 = 0; sj1 < suitsLength; sj1++) {
+                            for (int sj2 = sj1 + 1; sj2 < suitsLength; sj2++) {
+                                long c3 = createCardBitmask(j, CardSuit.values()[sj1]);
+                                long c4 = createCardBitmask(j, CardSuit.values()[sj2]);
+
+                                long pattern = c1 | c2 | c3 | c4;
+                                int strength = (i << 4) | j;
+                                patterns.add(pattern);
+                                CATEGORY_RANK_CODES.put(pattern, strength);
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -235,10 +272,8 @@ public class TexasHoldEmEval {
                 if (i == j) continue;
 
                 for (int si1 = 0; si1 < suitsLength; si1++) {
-                    for (int si2 = 0; si2 < suitsLength; si2++) {
-                        if (si1 == si2) continue;
-                        for (int si3 = 0; si3 < suitsLength; si3++) {
-                            if (si3 == si1 || si3 == si2) continue;
+                    for (int si2 = si1 + 1; si2 < suitsLength; si2++) {
+                        for (int si3 = si2 + 1; si3 < suitsLength; si3++) {
                             // Now create pattern for FULL_HOUSE using card i 3 times, and card j 2 times
                             long c1 = createCardBitmask(i, CardSuit.values()[si1]);
                             long c2 = createCardBitmask(i, CardSuit.values()[si2]);
@@ -246,8 +281,7 @@ public class TexasHoldEmEval {
 
                             // Find other 2 cards
                             for (int sj1 = 0; sj1 < suitsLength; sj1++) {
-                                for (int sj2 = 0; sj2 < suitsLength; sj2++) {
-                                    if (sj1 == sj2) continue;
+                                for (int sj2 = sj1 + 1; sj2 < suitsLength; sj2++) {
                                     long c4 = createCardBitmask(j, CardSuit.values()[sj1]);
                                     long c5 = createCardBitmask(j, CardSuit.values()[sj2]);
 
