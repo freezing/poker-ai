@@ -28,12 +28,6 @@ public class TexasHoldEmHandEvaluator implements HandEvaluator {
             int cardNumber = CardUtils.getRank(c.getHeight());
             handBitmask |= TexasHoldEmEval.createCardBitmask(cardNumber, suit);
         }
-
-        System.out.println(Arrays.deepToString(cards));
-        for (int i = 0; i < 64; i++) {
-            if (((1L << i) & handBitmask) > 0) System.out.println(i);
-        }
-        System.out.println();
         return handBitmask;
     }
 }

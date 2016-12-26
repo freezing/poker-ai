@@ -36,12 +36,12 @@ public class TexasHoldEmHandEvaluatorTest {
                 CardParseUtils.parseCard("HQ")
         });
 
-//        EvaluatedHand rank = evaluator.evaluate(hand, table);
+        EvaluatedHand rank = evaluator.evaluate(hand, table);
         EvaluatedHand rank2 = evaluator.evaluate(hand2, table);
-//        EvaluatedHand rank3 = evaluator.evaluate(hand3, table);
+        EvaluatedHand rank3 = evaluator.evaluate(hand3, table);
 
-//        System.out.println(rank);
+        System.out.println(rank);
         System.out.println(rank2);
-//        System.out.println(rank3);
+        System.out.println(rank3);
     }
 }

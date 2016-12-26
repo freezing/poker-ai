@@ -25,6 +25,6 @@ public class EvaluatedHand implements Comparable<EvaluatedHand> {
 
     @Override
     public String toString() {
-        return String.format("EvaluatedHand(rank = %d, %s)", rank, wholeHand);
+        return String.format("EvaluatedHand(rank = %d, rankHex = 0x%08X, %s)", rank, rank, wholeHand);
     }
 }

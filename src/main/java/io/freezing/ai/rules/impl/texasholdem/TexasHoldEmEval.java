@@ -73,7 +73,6 @@ public class TexasHoldEmEval {
     private static Optional<Integer> findAndEvaluate(long hand, HandCategory handCategory, long[] patterns) {
         for (long p : patterns) {
             if ((p & hand) == p) {
-                System.out.println(p);
                 return Optional.of(getRank(hand, p, handCategory));
             }
         }
@@ -330,22 +329,21 @@ public class TexasHoldEmEval {
 
         long initial = 0x1F;  // 0000000000011111
 
-        printHand(initial);
+//        printHand(initial);
         for (int i = 1; i < 10; i++) {
             // Shift initial i times to get mask for each straight flush
             patterns[i] = initial << i;
             // It starts with strength 6
             CATEGORY_RANK_CODES.put(patterns[i], 5 + i);
-            printHand(patterns[i]);
+//            printHand(patterns[i]);
         }
 
         // Copy the same patterns for each suit (shift 16, 32 and 48 times depending on the suit)
         for (int i = 10; i < 40; i++) {
-            int suitIndex = i / 10;
-            patterns[i] = patterns[i - 10] << (i - 1 + suitIndex * 16);
+            patterns[i] = patterns[i - 10] << 16;
             int corresponding = CATEGORY_RANK_CODES.get(patterns[i - 10]);
             CATEGORY_RANK_CODES.put(patterns[i], corresponding);
-            printHand(patterns[i]);
+//            printHand(patterns[i]);
         }
 
         return patterns;
