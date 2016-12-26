@@ -1,5 +1,6 @@
 package io.freezing.ai.function;
 
+import io.freezing.ai.domain.Card;
 import io.freezing.ai.domain.CardHeight;
 import io.freezing.ai.domain.CardSuit;
 
@@ -31,6 +32,25 @@ public class CardUtils {
             case ACE:   return 12;
             default:    throw new RuntimeException(String.format("Unknown CardHeight: %s", height.toString()));
         }
+    }
+
+    public static int getCardCode(Card card) {
+        return getSuiteCode(card.getSuit()) * CardHeight.values().length + getRank(card.getHeight());
+    }
+
+    public static Card getCard(int cardCode) {
+        return new Card(getSuit(cardCode / CardHeight.values().length), getHeight(cardCode % CardHeight.values().length));
+    }
+
+    public static CardSuit getSuit(int suitCode) {
+        for (CardSuit suit : CardSuit.values()) {
+            if (getSuiteCode(suit) == suitCode) {
+                return suit;
+            }
+        }
+        throw new IllegalArgumentException(
+                String.format("Couldn't find the corresponding CardSuit for the given suitCode: %d", suitCode)
+        );
     }
 
     public static CardHeight getHeight(int rank) {
