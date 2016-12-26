@@ -209,10 +209,10 @@ public class TexasHoldEmEval {
 
         int initial = 0x1F;  // 0000000000011111
         for (int i = 1; i < 10; i++) {
-            // Shift initial (i - 1) times to get mask for each straight
-            patterns[i] = initial << (i - 1);
+            // Shift initial i times to get mask for each straight
+            patterns[i] = initial << i;
             // It starts with strength 6
-            strengths[i] = 7 - i;
+            strengths[i] = 5 + i;
         }
 
         // Check if folded hand satisfies any of the patterns
@@ -329,19 +329,23 @@ public class TexasHoldEmEval {
         CATEGORY_RANK_CODES.put(patterns[0], 5);
 
         long initial = 0x1F;  // 0000000000011111
+
+        printHand(initial);
         for (int i = 1; i < 10; i++) {
-            // Shift initial (i - 1) times to get mask for each straight flush
-            patterns[i] = initial << (i - 1);
+            // Shift initial i times to get mask for each straight flush
+            patterns[i] = initial << i;
             // It starts with strength 6
-            CATEGORY_RANK_CODES.put(patterns[i], 7 - i);
+            CATEGORY_RANK_CODES.put(patterns[i], 5 + i);
+            printHand(patterns[i]);
         }
 
         // Copy the same patterns for each suit (shift 16, 32 and 48 times depending on the suit)
         for (int i = 10; i < 40; i++) {
             int suitIndex = i / 10;
-            patterns[i] = initial << (i - 1 + suitIndex * 16);
+            patterns[i] = patterns[i - 10] << (i - 1 + suitIndex * 16);
             int corresponding = CATEGORY_RANK_CODES.get(patterns[i - 10]);
             CATEGORY_RANK_CODES.put(patterns[i], corresponding);
+            printHand(patterns[i]);
         }
 
         return patterns;
@@ -355,6 +359,26 @@ public class TexasHoldEmEval {
      */
     private static int getCategoryCode(HandCategory handCategory) {
         return handCategory.ordinal() << 24;
+    }
+
+    private static void printHand(long hand) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+
+        boolean first = true;
+        for (int i = 0; i < 63; i++) {
+            if (((1L << i) & hand) > 0) {
+                if (!first) {
+                    sb.append(", " + i);
+                } else {
+                    first = false;
+                    sb.append(i);
+                }
+            }
+        }
+
+        sb.append("]");
+        System.out.println(sb.toString());
     }
 
     public static long createCardBitmask(int cardNumber, CardSuit suit) {
