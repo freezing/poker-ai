@@ -120,7 +120,7 @@ public class TexasHoldEmEval {
         int cardsLeft = cardsToRemove;
 
         for (int i = 0; i < 13 && cardsLeft > 0; i++) {
-            for (int suit = 0; suit < 4; suit++) {
+            for (int suit = 0; suit < 4 && cardsLeft > 0; suit++) {
                 long removePattern = ~(1L << (i + 16 * suit));
 
                 if (removed != (removed & removePattern)) {

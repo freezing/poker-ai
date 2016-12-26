@@ -52,41 +52,51 @@ public class TexasHoldEmHandEvaluatorTest {
                 CardParseUtils.parseCard("ST"), // Ten  of Spades
                 CardParseUtils.parseCard("DA"), // Ace  of Diamonds
                 CardParseUtils.parseCard("CA"), // Ace  of Clubs
-                CardParseUtils.parseCard("H4")  // Four of Hearts
+                CardParseUtils.parseCard("CT")  // Ten  of Clubs
         });
 
-        Hand hand1 = new Hand(new Card[] {
+        // Four of a kind (A)
+        Hand handA1 = new Hand(new Card[] {
                 CardParseUtils.parseCard("HA"), // Ace of Hearts
                 CardParseUtils.parseCard("H2")  // Two of Hearts
         });
 
-        Hand hand2 = new Hand(new Card[] {
-                CardParseUtils.parseCard("HA"), // Ace of Hearts
+        Hand handA2 = new Hand(new Card[] {
+                CardParseUtils.parseCard("HA"), // Ace   of Hearts
                 CardParseUtils.parseCard("H3")  // Three of Hearts
         });
 
-        Hand hand3 = new Hand(new Card[] {
+        Hand handA3 = new Hand(new Card[] {
                 CardParseUtils.parseCard("HA"), // Ace of Hearts
-                CardParseUtils.parseCard("HT")  // Ten of Hearts
+                CardParseUtils.parseCard("DT")  // Ten of Diamonds
         });
 
-        Hand hand4 = new Hand(new Card[] {
+        Hand handA4 = new Hand(new Card[] {
                 CardParseUtils.parseCard("HA"), // Ace  of Hearts
                 CardParseUtils.parseCard("DK")  // King of Diamonds
         });
 
-        EvaluatedHand evalHand1 = evaluator.evaluate(hand1, table);
-        EvaluatedHand evalHand2 = evaluator.evaluate(hand2, table);
-        EvaluatedHand evalHand3 = evaluator.evaluate(hand3, table);
-        EvaluatedHand evalHand4 = evaluator.evaluate(hand4, table);
+        EvaluatedHand evalHandA1 = evaluator.evaluate(handA1, table);
+        EvaluatedHand evalHandA2 = evaluator.evaluate(handA2, table);
+        EvaluatedHand evalHandA3 = evaluator.evaluate(handA3, table);
+        EvaluatedHand evalHandA4 = evaluator.evaluate(handA4, table);
 
-        System.out.println(evalHand1);
-        System.out.println(evalHand2);
-        System.out.println(evalHand3);
-        System.out.println(evalHand4);
+        Assert.assertTrue(evalHandA1.getRank() == evalHandA2.getRank());
+        Assert.assertTrue(evalHandA2.getRank() == evalHandA3.getRank());
+        Assert.assertTrue(evalHandA3.getRank() < evalHandA4.getRank());
 
-        Assert.assertTrue(evalHand1.getRank() == evalHand2.getRank());
-        Assert.assertTrue(evalHand2.getRank() < evalHand3.getRank());
-        Assert.assertTrue(evalHand3.getRank() < evalHand4.getRank());
+        // Four of a kind (T)
+        Hand handT1 = new Hand(new Card[] {
+                CardParseUtils.parseCard("DT"),
+                CardParseUtils.parseCard("HT")
+        });
+
+        EvaluatedHand evalHandT1 = evaluator.evaluate(handT1, table);
+
+        // Make sure that Four of A Kind(T) is less than all Four of a Kind (A)
+        Assert.assertTrue(evalHandT1.getRank() < evalHandA1.getRank());
+        Assert.assertTrue(evalHandT1.getRank() < evalHandA2.getRank());
+        Assert.assertTrue(evalHandT1.getRank() < evalHandA3.getRank());
+        Assert.assertTrue(evalHandT1.getRank() < evalHandA4.getRank());
     }
 }
