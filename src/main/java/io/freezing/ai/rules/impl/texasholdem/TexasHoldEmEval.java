@@ -73,6 +73,7 @@ public class TexasHoldEmEval {
     private static Optional<Integer> findAndEvaluate(long hand, HandCategory handCategory, long[] patterns) {
         for (long p : patterns) {
             if ((p & hand) == p) {
+                System.out.println(p);
                 return Optional.of(getRank(hand, p, handCategory));
             }
         }
@@ -87,7 +88,8 @@ public class TexasHoldEmEval {
         // K represents the kicker code.
         // Therefore, encode actual category rank by shifting it by 16, except when it's FULL_HOUSE or TWO_PAIR, then shift by 12,
         // because it requires 3 x P and 2 x K, i.e. more combinations for the category rank.
-        int categoryRankCode = CATEGORY_RANK_CODES.get(categoryPattern) << 12;
+        int categoryRankCode = 0;
+        if (handCategory != HandCategory.NO_PAIR) categoryRankCode = CATEGORY_RANK_CODES.get(categoryPattern) << 12;
         if (handCategory != HandCategory.FULL_HOUSE && handCategory != HandCategory.TWO_PAIR) categoryRankCode <<= 4;
 
         // Remove cards that determine the category
