@@ -99,4 +99,48 @@ public class TexasHoldEmHandEvaluatorTest {
         Assert.assertTrue(evalHandT1.getRank() < evalHandA3.getRank());
         Assert.assertTrue(evalHandT1.getRank() < evalHandA4.getRank());
     }
+
+    @Test
+    public void testFullHouseOrdering() throws ParseException {
+        Table table = new Table(new Card[] {
+                CardParseUtils.parseCard("SJ"), // Jack of Spades
+                CardParseUtils.parseCard("ST"), // Ten  of Spades
+                CardParseUtils.parseCard("DA"), // Ace  of Diamonds
+                CardParseUtils.parseCard("CA"), // Ace  of Clubs
+                CardParseUtils.parseCard("H4")  // Four of Hearts
+        });
+
+        // Full House (A-4)
+        Hand handA41 = new Hand(new Card[] {
+                CardParseUtils.parseCard("HA"), // Ace  of Hearts
+                CardParseUtils.parseCard("C4")  // Four of Clubs
+        });
+
+        // Full House (A-4)
+        Hand handA42 = new Hand(new Card[] {
+                CardParseUtils.parseCard("HA"), // Ace  of Hearts
+                CardParseUtils.parseCard("S4")  // Four of Spades
+        });
+
+        // Full House (A-T)
+        Hand handAT = new Hand(new Card[] {
+                CardParseUtils.parseCard("HA"), // Ace  of Hearts
+                CardParseUtils.parseCard("CT")  // Ten  of Clubs
+        });
+
+        // Full House (A-J)
+        Hand handAJ = new Hand(new Card[] {
+                CardParseUtils.parseCard("HA"), // Ace  of Hearts
+                CardParseUtils.parseCard("CJ")  // Jack of Clubs
+        });
+
+        EvaluatedHand evalHandA41 = evaluator.evaluate(handA41, table);
+        EvaluatedHand evalHandA42 = evaluator.evaluate(handA42, table);
+        EvaluatedHand evalHandAT = evaluator.evaluate(handAT, table);
+        EvaluatedHand evalHandAJ = evaluator.evaluate(handAJ, table);
+
+        Assert.assertTrue(evalHandA41.getRank() == evalHandA42.getRank());
+        Assert.assertTrue(evalHandA41.getRank() < evalHandAT.getRank());
+        Assert.assertTrue(evalHandAT.getRank() < evalHandAJ.getRank());
+    }
 }
