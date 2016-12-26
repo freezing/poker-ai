@@ -34,14 +34,14 @@ import java.util.logging.Logger;
 public class TexasHoldemInputParser implements PokerInputParser {
     private static final Logger logger = Logger.getLogger(TexasHoldemInputParser.class.getName());
 
-    private static final int EXPECTED_TOKENS = 13;
+    private static final int EXPECTED_TOKENS = 14;
 
     @Override
     public PokerState parse(String stateString) throws ParseException {
         // Split by whitespace
         String values[]  = stateString.trim().split("\\s");
 
-        if (values.length != 13) {
+        if (values.length != EXPECTED_TOKENS) {
             throw new ParseException(
                     String.format("Expected %d tokens (split by whitespace), but got: %d in '%s'.", EXPECTED_TOKENS, values.length, stateString)
             );
