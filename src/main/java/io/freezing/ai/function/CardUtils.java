@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class CardUtils {
-    public static int[] getUnknownCardCodes(Table table, Hand hand) {
+    public static int[] getHiddenCardCodes(Table table, Hand hand) {
         Card[] all = merge(table, hand);
 
         // Put known card codes in the Set (so we can easily find them)

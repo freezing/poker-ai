@@ -9,6 +9,7 @@ import io.freezing.ai.bot.action.impl.RaiseAction;
 import io.freezing.ai.domain.Hand;
 import io.freezing.ai.domain.PokerState;
 import io.freezing.ai.domain.Table;
+import io.freezing.ai.function.CardUtils;
 import io.freezing.ai.rules.impl.texasholdem.TexasHoldEmRules;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -35,6 +36,10 @@ public class SimpleTexasHoldEmPokerBot implements PokerBot {
     private double calculateWinProbability(Table table, Hand hand, int totalNumberOfPlayers) {
         Hand opponents[] = new Hand[totalNumberOfPlayers];
 
+        // Start with finding card codes that are not visible to the bot
+        int hiddenCardCodes[] = CardUtils.getHiddenCardCodes(table, hand);
+
+        //
 
         throw new NotImplementedException();
     }
