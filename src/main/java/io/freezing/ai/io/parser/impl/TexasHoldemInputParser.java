@@ -72,7 +72,7 @@ public class TexasHoldemInputParser implements PokerInputParser {
 
     @Override
     public String getFormat() {
-        return "<RoundNumber> <SmallBlind> <BigBlind> <TotalPot> <AmountToCall> <MyStack> <MyHand> <Table>";
+        return "<RoundNumber> <TotalNumberOfPlayers> <SmallBlind> <BigBlind> <TotalPot> <AmountToCall> <MyStack> <MyHand> <Table>";
     }
 
     private int parseInt(String values[], int idx) throws ParseException {
