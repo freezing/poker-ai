@@ -38,6 +38,10 @@ public class PokerState {
         this.amountToCall = amountToCall;
         this.myStack = myStack;
         this.myHand = myHand;
+
+        if (totalNumberOfPlayers <= 1) {
+            throw new IllegalArgumentException(String.format("Found PokerState with %d total # of players which means the game is over or the input is invalid. TODO: This is to be handled in a better way at some point.", totalNumberOfPlayers));
+        }
     }
 
     public int getRoundNumber() {
