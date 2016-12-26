@@ -2,6 +2,7 @@ package io.freezing.ai.rules.impl.texasholdem;
 
 import io.freezing.ai.domain.CardSuit;
 import io.freezing.ai.domain.HandCategory;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.*;
 
@@ -41,6 +42,10 @@ public class TexasHoldEmEval {
         // Try FULL_HOUSE
         Optional<Integer> fullHouseOpt = findAndEvaluate(hand, HandCategory.FULL_HOUSE, FULL_HOUSE_PATTERNS);
         if (fullHouseOpt.isPresent()) return fullHouseOpt.get();
+
+        // Try FLUSH - it's very specific logic, we don't have anything preprocessed
+        Optional<Integer> flushOpt = tryFlush(hand);
+        if (flushOpt.isPresent()) return flushOpt.get();
 
         // Try THREE_OF_A_KIND
         Optional<Integer> threeKindOpt = findAndEvaluate(hand, HandCategory.THREE_OF_A_KIND, THREE_OF_A_KIND_PATTERNS);
@@ -115,6 +120,43 @@ public class TexasHoldEmEval {
         for (int i = 0; i < patterns.size(); i++) patternsArray[i] = patterns.get(i);
         return patternsArray;
     }
+
+    private static Optional<Integer> tryFlush(long hand) {
+        int categoryCode = getCategoryCode(HandCategory.FLUSH);
+
+        // Count number of bits in the suit (in 16 bit group). If it's >= 5 then it's FLUSH
+        // Strength is the same as kicker code in this case because there are no additional cards,
+        // therefore just use what's left of hand
+        for (int i = 0; i < 4; i++) {
+            int handNumbers = (int)((hand << (i * 16)) & 0xFFFF);
+            int ones = countSetBits(handNumbers);
+            if (ones >= 5) {
+                // Delete ones starting from the least-significant bit, until there are exactly 5 left
+                for (int bit = 0; bit < 13 && ones > 5; bit++) {
+                    // Remove bit-th bit
+                    int removePattern = ~(1 << bit); // All ones except for bit-th bit
+                    handNumbers &= removePattern;
+                    ones = countSetBits(handNumbers);
+                }
+
+                if (ones != 5) throw new IllegalStateException(String.format("Expected that number of ones in hand: %d is 5 but got: %d", handNumbers, ones));
+
+                return Optional.of(categoryCode | handNumbers);
+            }
+        }
+
+        return Optional.empty();
+    }
+
+    private static int countSetBits(int n) {
+        n = n - ((n >> 1) & 0x55555555);
+        n = (n & 0x33333333) + ((n >> 2) & 0x33333333);
+        n = (n + (n >> 4)) & 0x0F0F0F0F;
+        n = n + (n >> 8);
+        n = n + (n >> 16);
+        return n & 0x0000003F;
+    }
+
 
     private static long[] createFullHousePatterns() {
         // There are 13 * 12 * 6 patterns like this.
@@ -214,6 +256,13 @@ public class TexasHoldEmEval {
     }
 
     public static long createCardBitmask(int cardNumber, CardSuit suit) {
-        return (1L << cardNumber) << SHIFTS.get(suit)
+        return (1L << cardNumber) << SHIFTS.get(suit);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(countSetBits(15)); // 4
+        System.out.println(countSetBits(8)); // 1
+        System.out.println(countSetBits(2147483150)); // 25
+        System.out.println(countSetBits(17920377)); // 12
     }
 }
