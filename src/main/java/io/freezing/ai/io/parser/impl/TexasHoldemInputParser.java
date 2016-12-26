@@ -34,16 +34,17 @@ import java.util.logging.Logger;
 public class TexasHoldemInputParser implements PokerInputParser {
     private static final Logger logger = Logger.getLogger(TexasHoldemInputParser.class.getName());
 
-    private static final int EXPECTED_TOKENS = 14;
+    private static final int MIN_EXPECTED_TOKENS = 19;
+    private static final int MAX_EXPECTED_TOKENS = 14;
 
     @Override
     public PokerState parse(String stateString) throws ParseException {
         // Split by whitespace
         String values[]  = stateString.trim().split("\\s");
 
-        if (values.length != EXPECTED_TOKENS) {
+        if (MIN_EXPECTED_TOKENS <= values.length && values.length <= MAX_EXPECTED_TOKENS) {
             throw new ParseException(
-                    String.format("Expected %d tokens (split by whitespace), but got: %d in '%s'.", EXPECTED_TOKENS, values.length, stateString)
+                    String.format("Expected from %d to %d tokens (split by whitespace), but got: %d in '%s'.", MIN_EXPECTED_TOKENS, MAX_EXPECTED_TOKENS, values.length, stateString)
             );
         }
 
@@ -62,9 +63,11 @@ public class TexasHoldemInputParser implements PokerInputParser {
         Hand myHand                 = new Hand(parseCards(values, new int[] {nextIdx, nextIdx + 1}));
         nextIdx += 2;
 
-        Table table                 = new Table(parseCards(values, new int[] {nextIdx, nextIdx + 1, nextIdx + 2, nextIdx + 3, nextIdx + 4}));
-        table                 = new Table(parseCards(values, new int[] {nextIdx, nextIdx + 1, nextIdx + 2}));
-        // nextIdx += 5
+        // From here, remaining cards are Table cards; there can be from 0 to 5 cards
+        int[] tableIndexes = new int[values.length - nextIdx];
+        for (int i = 0; i < tableIndexes.length; i++) tableIndexes[i] = nextIdx + i;
+        Table table                       = new Table(parseCards(values, tableIndexes));
+        // nextIdx += tableIndexes.length;
 
         PokerState state = new PokerState(roundNumber, totalNumberOfPlayers, smallBlind, bigBlind, table, totalPot, amountToCall, myStack, myHand);
         logger.info(String.format("Parsed state: %s", state.toString()));
