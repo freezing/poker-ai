@@ -13,4 +13,9 @@ public class SimpleTexasHoldEmRationale implements BotActionRationale {
     public double getWinProbability() {
         return this.winProbability;
     }
+
+    @Override
+    public String toString() {
+        return String.format("SimpleTexasHoldEmRationale(winProbability = %f)", this.winProbability);
+    }
 }
