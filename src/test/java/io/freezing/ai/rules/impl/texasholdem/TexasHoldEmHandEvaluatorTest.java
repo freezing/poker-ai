@@ -452,4 +452,47 @@ public class TexasHoldEmHandEvaluatorTest {
         Assert.assertTrue(evalHand3.getRank() < evalHand4.getRank());
         Assert.assertTrue(evalHand4.getRank() == evalHand5.getRank());
     }
+
+    @Test
+    public void testCategoryOrdering() throws ParseException {
+        EvaluatedHand evalHand1  = evaluate("CA", "CK", "S3", "D4", "H8", "H7", "DT"); // NO_PAIR
+        EvaluatedHand evalHand2  = evaluate("CA", "CK", "S3", "DA", "H8", "H7", "DT"); // PAIR
+        EvaluatedHand evalHand3  = evaluate("CA", "CK", "SK", "DA", "H8", "H7", "DT"); // TWO_PAIR
+        EvaluatedHand evalHand4  = evaluate("CA", "CK", "SK", "D2", "HK", "H7", "DT"); // THREE_OF_A_KIND
+        EvaluatedHand evalHand5  = evaluate("CA", "C2", "S3", "D4", "H8", "H5", "DT"); // STRAIGHT WHEEL (to the 5)
+        EvaluatedHand evalHand6  = evaluate("C6", "C7", "S8", "DA", "H9", "H7", "DT"); // STRAIGHT
+        EvaluatedHand evalHand7  = evaluate("CA", "CK", "C3", "DA", "C8", "C7", "DT"); // FLUSH
+        EvaluatedHand evalHand8  = evaluate("CA", "CK", "SK", "DA", "HK", "H7", "DT"); // FULL_HOUSE
+        EvaluatedHand evalHand9  = evaluate("C2", "CK", "S2", "D2", "H2", "H7", "DT"); // FOUR_OF_A_KIND
+        EvaluatedHand evalHand10 = evaluate("CA", "C2", "C3", "C4", "C5", "H7", "CT"); // STRAIGHT_FLUSH WHEEL (to the 5)
+        EvaluatedHand evalHand11 = evaluate("C6", "C7", "C8", "DA", "C9", "H7", "CT"); // STRAIGHT_FLUSH
+        EvaluatedHand evalHand12 = evaluate("CA", "CK", "CQ", "CJ", "H8", "H7", "CT"); // ROYAL_FLUSH
+
+        Assert.assertTrue(evalHand1.getRank() < evalHand2.getRank());
+        Assert.assertTrue(evalHand2.getRank() < evalHand3.getRank());
+        Assert.assertTrue(evalHand3.getRank() < evalHand4.getRank());
+        Assert.assertTrue(evalHand4.getRank() < evalHand5.getRank());
+        Assert.assertTrue(evalHand5.getRank() < evalHand6.getRank());
+        Assert.assertTrue(evalHand6.getRank() < evalHand7.getRank());
+        Assert.assertTrue(evalHand7.getRank() < evalHand8.getRank());
+        Assert.assertTrue(evalHand8.getRank() < evalHand9.getRank());
+        Assert.assertTrue(evalHand9.getRank() < evalHand10.getRank());
+        Assert.assertTrue(evalHand10.getRank() < evalHand11.getRank());
+        Assert.assertTrue(evalHand11.getRank() < evalHand12.getRank());
+    }
+
+    private EvaluatedHand evaluate(String ...cardCodes) throws ParseException {
+        if (cardCodes.length != 7) throw new IllegalArgumentException("Expected exactly 7 card codes, but got: " + cardCodes.length);
+
+        return evaluator.evaluate(new Hand(new Card[]{
+                CardParseUtils.parseCard(cardCodes[0]),
+                CardParseUtils.parseCard(cardCodes[1])
+        }), new Table(new Card[] {
+                CardParseUtils.parseCard(cardCodes[2]),
+                CardParseUtils.parseCard(cardCodes[3]),
+                CardParseUtils.parseCard(cardCodes[4]),
+                CardParseUtils.parseCard(cardCodes[5]),
+                CardParseUtils.parseCard(cardCodes[6])
+        }));
+    }
 }
