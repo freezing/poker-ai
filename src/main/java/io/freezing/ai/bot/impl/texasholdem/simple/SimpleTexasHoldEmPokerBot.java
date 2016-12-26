@@ -30,8 +30,8 @@ public class SimpleTexasHoldEmPokerBot implements PokerBot {
         double winProbability = calculateWinProbability(state.getTable(), state.getMyHand(), state.getTotalNumberOfPlayers());
         BotActionRationale rationale = new SimpleTexasHoldEmRationale(winProbability);
 
-        if (winProbability > 90) return new RaiseAction(state.getMyStack(), rationale);
-        else if (winProbability > 50) return new RaiseAction(state.getMyStack() / 2, rationale);
+        if (winProbability > 0.9) return new RaiseAction(state.getMyStack(), rationale);
+        else if (winProbability > 0.5) return new RaiseAction(state.getMyStack() / 2, rationale);
         else if (state.getAmountToCall() == 0) return new CheckAction(rationale);
         else return new FoldAction(rationale);
     }
