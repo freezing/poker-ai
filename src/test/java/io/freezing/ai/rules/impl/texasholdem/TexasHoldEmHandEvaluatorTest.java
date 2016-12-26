@@ -405,4 +405,51 @@ public class TexasHoldEmHandEvaluatorTest {
         Assert.assertTrue(evalHand4.getRank() < evalHand5.getRank());
         Assert.assertTrue(evalHand5.getRank() < evalHand6.getRank());
     }
+
+    @Test
+    public void testNoPairOrdering() throws ParseException {
+        Table table = new Table(new Card[] {
+                CardParseUtils.parseCard("S2"), // Two   of Spades
+                CardParseUtils.parseCard("H5"), // Five  of Hearts
+                CardParseUtils.parseCard("SQ"), // Queen of Spades
+                CardParseUtils.parseCard("DT"), // Ten   of Diamonds
+                CardParseUtils.parseCard("C9")  // Nine  of Clubs
+        });
+
+        Hand hand1 = new Hand(new Card[] {
+                CardParseUtils.parseCard("C3"), // Three  of Clubs
+                CardParseUtils.parseCard("C4")  // Four   of Clubs
+        });
+
+        Hand hand2 = new Hand(new Card[] {
+                CardParseUtils.parseCard("C3"), // Three  of Clubs
+                CardParseUtils.parseCard("C7")  // Seven  of Clubs
+        });
+
+        Hand hand3 = new Hand(new Card[] {
+                CardParseUtils.parseCard("C7"), // Seven  of Clubs
+                CardParseUtils.parseCard("C8")  // Eight  of Clubs
+        });
+
+        Hand hand4 = new Hand(new Card[] {
+                CardParseUtils.parseCard("C3"), // Three  of Clubs
+                CardParseUtils.parseCard("CA")  // Ace    of Clubs
+        });
+
+        Hand hand5 = new Hand(new Card[] {
+                CardParseUtils.parseCard("C4"), // Three  of Clubs
+                CardParseUtils.parseCard("CA")  // Four   of Clubs
+        });
+
+        EvaluatedHand evalHand1 = evaluator.evaluate(hand1, table);
+        EvaluatedHand evalHand2 = evaluator.evaluate(hand2, table);
+        EvaluatedHand evalHand3 = evaluator.evaluate(hand3, table);
+        EvaluatedHand evalHand4 = evaluator.evaluate(hand4, table);
+        EvaluatedHand evalHand5 = evaluator.evaluate(hand5, table);
+
+        Assert.assertTrue(evalHand1.getRank() < evalHand2.getRank());
+        Assert.assertTrue(evalHand2.getRank() < evalHand3.getRank());
+        Assert.assertTrue(evalHand3.getRank() < evalHand4.getRank());
+        Assert.assertTrue(evalHand4.getRank() == evalHand5.getRank());
+    }
 }
