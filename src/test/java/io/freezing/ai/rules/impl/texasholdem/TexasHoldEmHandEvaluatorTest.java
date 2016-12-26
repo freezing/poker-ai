@@ -143,4 +143,63 @@ public class TexasHoldEmHandEvaluatorTest {
         Assert.assertTrue(evalHandA41.getRank() < evalHandAT.getRank());
         Assert.assertTrue(evalHandAT.getRank() < evalHandAJ.getRank());
     }
+
+    @Test
+    public void testFlushOrdering() throws ParseException {
+        Table table = new Table(new Card[] {
+                CardParseUtils.parseCard("SJ"), // Jack of Spades
+                CardParseUtils.parseCard("ST"), // Ten  of Spades
+                CardParseUtils.parseCard("SA"), // Ace  of Spades
+                CardParseUtils.parseCard("S4"), // Four of Spades
+                CardParseUtils.parseCard("CA")  // Ace  of Clubs
+        });
+
+        Hand hand1 = new Hand(new Card[] {
+                CardParseUtils.parseCard("HA"), // Ace  of Hearts
+                CardParseUtils.parseCard("S2")  // Two of Spades
+        });
+
+        Hand hand2 = new Hand(new Card[] {
+                CardParseUtils.parseCard("HA"), // Ace   of Hearts
+                CardParseUtils.parseCard("S3")  // Three of Spades
+        });
+
+        Hand hand3 = new Hand(new Card[] {
+                CardParseUtils.parseCard("HA"), // Ace  of Hearts
+                CardParseUtils.parseCard("S5")  // Five of Spades
+        });
+
+        Hand hand4 = new Hand(new Card[] {
+                CardParseUtils.parseCard("S5"), // Five of Hearts
+                CardParseUtils.parseCard("S2")  // Two  of Spades
+        });
+
+        Hand hand5 = new Hand(new Card[] {
+                CardParseUtils.parseCard("HA"), // Ace   of Hearts
+                CardParseUtils.parseCard("SQ")  // Queen of Spades
+        });
+
+        Hand hand6 = new Hand(new Card[] {
+                CardParseUtils.parseCard("HA"), // Ace  of Hearts
+                CardParseUtils.parseCard("SK")  // King of Spades
+        });
+
+        EvaluatedHand evalHand1 = evaluator.evaluate(hand1, table);
+        EvaluatedHand evalHand2 = evaluator.evaluate(hand2, table);
+        EvaluatedHand evalHand3 = evaluator.evaluate(hand3, table);
+        EvaluatedHand evalHand4 = evaluator.evaluate(hand4, table);
+        EvaluatedHand evalHand5 = evaluator.evaluate(hand5, table);
+        EvaluatedHand evalHand6 = evaluator.evaluate(hand6, table);
+
+        System.out.println(evalHand1);
+        System.out.println(evalHand2);
+
+        // Hand4 == Hand3
+        // Other are in increasing order
+        Assert.assertTrue(evalHand1.getRank() < evalHand2.getRank());
+        Assert.assertTrue(evalHand2.getRank() < evalHand3.getRank());
+        Assert.assertTrue(evalHand3.getRank() == evalHand4.getRank());
+        Assert.assertTrue(evalHand4.getRank() < evalHand5.getRank());
+        Assert.assertTrue(evalHand5.getRank() < evalHand6.getRank());
+    }
 }

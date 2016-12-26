@@ -98,10 +98,10 @@ public class TexasHoldEmEval {
         // Remove cards that determine the category
         long leftovers = hand ^ categoryPattern;
 
-        System.out.println("getRank:");
-        printHand(hand);
-        printHand(categoryPattern);
-        printHand(leftovers);
+//        System.out.println("getRank:");
+//        printHand(hand);
+//        printHand(categoryPattern);
+//        printHand(leftovers);
 
         // Remove suits so that we are only left with numbers.
         // Note that in this state all the numbers are going to be different,
@@ -109,8 +109,8 @@ public class TexasHoldEmEval {
         // To keep only numbers, basically shift the whole number by (0, 16, 32, 48) and take first 16 bits
         long upTo5Leftovers = removeLeastSignificantCards(leftovers, 2);
         int kickerCode = foldHandNumbers(upTo5Leftovers);
-        printHand(upTo5Leftovers);
-        printHand(kickerCode);
+//        printHand(upTo5Leftovers);
+//        printHand(kickerCode);
 
         return categoryCode | categoryRankCode | kickerCode;
     }
@@ -367,13 +367,11 @@ public class TexasHoldEmEval {
 
         long initial = 0x1F;  // 0000000000011111
 
-//        printHand(initial);
         for (int i = 1; i < 10; i++) {
             // Shift initial i times to get mask for each straight flush
             patterns[i] = initial << i;
             // It starts with strength 6
             CATEGORY_RANK_CODES.put(patterns[i], 5 + i);
-//            printHand(patterns[i]);
         }
 
         // Copy the same patterns for each suit (shift 16, 32 and 48 times depending on the suit)
