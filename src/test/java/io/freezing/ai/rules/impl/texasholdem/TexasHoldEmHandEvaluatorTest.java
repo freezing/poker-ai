@@ -263,4 +263,45 @@ public class TexasHoldEmHandEvaluatorTest {
         Assert.assertTrue(evalHandWheel.getRank() < evalHand3.getRank());
         Assert.assertTrue(evalHandWheel.getRank() < evalHand4.getRank());
     }
+
+    @Test
+    public void testThreeOfAKindOrdering() throws ParseException {
+        Table table = new Table(new Card[] {
+                CardParseUtils.parseCard("S2"), // Two   of Spades
+                CardParseUtils.parseCard("H5"), // Five  of Hearts
+                CardParseUtils.parseCard("S6"), // Six   of Spades
+                CardParseUtils.parseCard("DT"), // Ten   of Diamonds
+                CardParseUtils.parseCard("C9")  // Nine  of Clubs
+        });
+
+        Hand hand1 = new Hand(new Card[] {
+                CardParseUtils.parseCard("C2"), // Two of Clubs
+                CardParseUtils.parseCard("H2")  // Two of Hearts
+        });
+
+        Hand hand2 = new Hand(new Card[] {
+                CardParseUtils.parseCard("C5"), // Five of Clubs
+                CardParseUtils.parseCard("S5")  // Five of Spades
+        });
+
+        Hand hand3 = new Hand(new Card[] {
+                CardParseUtils.parseCard("CT"), // Ten of Clubs
+                CardParseUtils.parseCard("ST")  // Ten of Spades
+        });
+
+        Hand hand4 = new Hand(new Card[] {
+                CardParseUtils.parseCard("CT"), // Ten of Clubs
+                CardParseUtils.parseCard("HT")  // Ten of Hearts
+        });
+
+        EvaluatedHand evalHand1 = evaluator.evaluate(hand1, table);
+        EvaluatedHand evalHand2 = evaluator.evaluate(hand2, table);
+        EvaluatedHand evalHand3 = evaluator.evaluate(hand3, table);
+        EvaluatedHand evalHand4 = evaluator.evaluate(hand4, table);
+
+        // Hand3 == Hand4
+        Assert.assertTrue(evalHand1.getRank() < evalHand2.getRank());
+        Assert.assertTrue(evalHand2.getRank() < evalHand3.getRank());
+        Assert.assertTrue(evalHand3.getRank() == evalHand4.getRank());
+    }
 }
