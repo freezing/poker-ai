@@ -2,7 +2,6 @@ package io.freezing.ai.rules.impl.texasholdem;
 
 import io.freezing.ai.domain.CardSuit;
 import io.freezing.ai.domain.HandCategory;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.*;
 
@@ -11,6 +10,7 @@ public class TexasHoldEmEval {
     private static final long STRAIGHT_FLUSH_PATTERNS[];
     private static final long FOUR_OF_A_KIND_PATTERNS[];
     private static final long FULL_HOUSE_PATTERNS[];
+    private static final long THREE_OF_A_KIND_PATTERNS[];
 
     private static final Map<CardSuit, Long> SHIFTS;
     static {
@@ -26,6 +26,7 @@ public class TexasHoldEmEval {
         STRAIGHT_FLUSH_PATTERNS = createStraightFlushPatterns();
         FOUR_OF_A_KIND_PATTERNS = createFourOfAKindPatterns();
         FULL_HOUSE_PATTERNS = createFullHousePatterns();
+        THREE_OF_A_KIND_PATTERNS = createThreeOfAKindPatterns();
     }
 
     public static int evaluate(long hand) {
@@ -40,6 +41,10 @@ public class TexasHoldEmEval {
         // Try FULL_HOUSE
         Optional<Integer> fullHouseOpt = findAndEvaluate(hand, HandCategory.FULL_HOUSE, FULL_HOUSE_PATTERNS);
         if (fullHouseOpt.isPresent()) return fullHouseOpt.get();
+
+        // Try THREE_OF_A_KIND
+        Optional<Integer> threeKindOpt = findAndEvaluate(hand, HandCategory.THREE_OF_A_KIND, THREE_OF_A_KIND_PATTERNS);
+        if (threeKindOpt.isPresent()) return threeKindOpt.get();
 
         // No pattern found, therefore it's NO_PAIR
         return getRank(hand, 0, HandCategory.NO_PAIR);
@@ -82,8 +87,37 @@ public class TexasHoldEmEval {
         return categoryCode | categoryRankCode | kickerCode;
     }
 
+    private static long[] createThreeOfAKindPatterns() {
+        List<Long> patterns = new ArrayList<>();
+        int suitsLength = CardSuit.values().length;
+
+        for (int cardNum = 0; cardNum < 13; cardNum++) {
+            for (int s1 = 0; s1 < suitsLength; s1++) {
+                for (int s2 = 0; s2 < suitsLength; s2++) {
+                    if (s1 == s2) continue;
+                    for (int s3 = 0; s3 < suitsLength; s3++) {
+                        if (s3 == s1 || s3 == s2) continue;
+
+                        long c1 = createCardBitmask(cardNum, CardSuit.values()[s1]);
+                        long c2 = createCardBitmask(cardNum, CardSuit.values()[s2]);
+                        long c3 = createCardBitmask(cardNum, CardSuit.values()[s3]);
+
+                        long pattern = c1 | c2 | c3;
+                        // Strength is the cardNum
+                        CATEGORY_RANK_CODES.put(pattern, cardNum);
+                        patterns.add(pattern);
+                    }
+                }
+            }
+        }
+
+        long[] patternsArray = new long[patterns.size()];
+        for (int i = 0; i < patterns.size(); i++) patternsArray[i] = patterns.get(i);
+        return patternsArray;
+    }
+
     private static long[] createFullHousePatterns() {
-        // There are 13 * 12 patterns like this.
+        // There are 13 * 12 * 6 patterns like this.
         int suitsLength = CardSuit.values().length;
 
         List<Long> patterns = new ArrayList<>();
