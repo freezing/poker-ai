@@ -47,6 +47,10 @@ public class TexasHoldEmEval {
         Optional<Integer> flushOpt = tryFlush(hand);
         if (flushOpt.isPresent()) return flushOpt.get();
 
+        // Try STRAIGHT - it's very specific logic, we don't have anything preprocessed
+        Optional<Integer> straightOpt = tryStraight(hand);
+        if (straightOpt.isPresent()) return straightOpt.get();
+
         // Try THREE_OF_A_KIND
         Optional<Integer> threeKindOpt = findAndEvaluate(hand, HandCategory.THREE_OF_A_KIND, THREE_OF_A_KIND_PATTERNS);
         if (threeKindOpt.isPresent()) return threeKindOpt.get();
@@ -119,6 +123,42 @@ public class TexasHoldEmEval {
         long[] patternsArray = new long[patterns.size()];
         for (int i = 0; i < patterns.size(); i++) patternsArray[i] = patterns.get(i);
         return patternsArray;
+    }
+
+    private static Optional<Integer> tryStraight(long hand) {
+        int categoryCode = getCategoryCode(HandCategory.STRAIGHT);
+
+        // Fold hand to represent only the numbers
+        int handNumbers = 0;
+        for (int i = 0; i < 4; i++) {
+            handNumbers |= (int)((hand << (i * 16)) & 0xFFFF);
+        }
+
+        // Create STRAIGHT patterns and strengths
+        int[] patterns = new int[10];
+        int[] strengths = new int[patterns.length];
+        // Special case is A,2,3,4,5, 12th bit active and the first 4
+        patterns[0] = 0x100F; // 0001000000001111
+        // Straight to the five has rank 5
+        strengths[0] = 5;
+
+        int initial = 0x1F;  // 0000000000011111
+        for (int i = 1; i < 10; i++) {
+            // Shift initial (i - 1) times to get mask for each straight
+            patterns[i] = initial << (i - 1);
+            // It starts with strength 6
+            strengths[i] = 7 - i;
+        }
+
+        // Check if folded hand satisfies any of the patterns
+        for (int i = 0; i < patterns.length; i++) {
+            if ((handNumbers & patterns[i]) == patterns[i]) {
+                // Kicker code is the same as strength
+                return Optional.of(categoryCode | strengths[i]);
+            }
+        }
+
+        return Optional.empty();
     }
 
     private static Optional<Integer> tryFlush(long hand) {
