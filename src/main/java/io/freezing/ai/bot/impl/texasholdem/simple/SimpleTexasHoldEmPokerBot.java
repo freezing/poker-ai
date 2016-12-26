@@ -3,6 +3,7 @@ package io.freezing.ai.bot.impl.texasholdem.simple;
 import io.freezing.ai.bot.BotActionRationale;
 import io.freezing.ai.bot.PokerBot;
 import io.freezing.ai.bot.action.BotAction;
+import io.freezing.ai.bot.action.impl.CallAction;
 import io.freezing.ai.bot.action.impl.CheckAction;
 import io.freezing.ai.bot.action.impl.FoldAction;
 import io.freezing.ai.bot.action.impl.RaiseAction;
@@ -33,6 +34,8 @@ public class SimpleTexasHoldEmPokerBot implements PokerBot {
         if (winProbability > 0.9) return new RaiseAction(state.getMyStack(), rationale);
         else if (winProbability > 0.5) return new RaiseAction(state.getMyStack() / 2, rationale);
         else if (state.getAmountToCall() == 0) return new CheckAction(rationale);
+        // If within the 15% of my pot and I still have good chance of winning
+        else if (winProbability > 0.35 && 0.15 * state.getMyStack() > state.getAmountToCall()) return new CallAction(state.getAmountToCall(), rationale);
         else return new FoldAction(rationale);
     }
 
