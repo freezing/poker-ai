@@ -2,6 +2,7 @@ package io.freezing.ai.rules.impl.texasholdem;
 
 import io.freezing.ai.domain.CardSuit;
 import io.freezing.ai.domain.HandCategory;
+import io.freezing.ai.function.CardUtils;
 
 import java.util.*;
 
@@ -289,7 +290,7 @@ public class TexasHoldEmEval {
         return Optional.empty();
     }
 
-    private static int countSetBits(int n) {
+    public static int countSetBits(int n) {
         n = n - ((n >> 1) & 0x55555555);
         n = (n & 0x33333333) + ((n >> 2) & 0x33333333);
         n = (n + (n >> 4)) & 0x0F0F0F0F;
@@ -397,23 +398,7 @@ public class TexasHoldEmEval {
     }
 
     public static void printHand(long hand) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("[");
-
-        boolean first = true;
-        for (int i = 0; i < 63; i++) {
-            if (((1L << i) & hand) > 0) {
-                if (!first) {
-                    sb.append(", " + i);
-                } else {
-                    first = false;
-                    sb.append(i);
-                }
-            }
-        }
-
-        sb.append("]");
-        System.out.println(sb.toString());
+        System.out.println(CardUtils.buildString(hand));
     }
 
     public static long createCardBitmask(int cardNumber, CardSuit suit) {

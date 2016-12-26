@@ -32,4 +32,23 @@ public class CardUtils {
                 String.format("Couldn't find the corresponding CardHeight for the given rank: %d", rank)
         );
     }
+
+    public static String buildString(long hand) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+
+        boolean first = true;
+        for (int i = 0; i < 63; i++) {
+            if (((1L << i) & hand) > 0) {
+                if (!first) {
+                    sb.append(", " + i);
+                } else {
+                    first = false;
+                    sb.append(i);
+                }
+            }
+        }
+        sb.append("]");
+        return sb.toString();
+    }
 }
