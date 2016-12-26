@@ -7,11 +7,7 @@ import io.freezing.ai.rules.HandEvaluator;
 public class TexasHoldEmHandEvaluator implements HandEvaluator {
     @Override
     public EvaluatedHand evaluate(Hand hand, Table table) {
-        Card[] cards = new Card[hand.getCards().length + table.getCards().length];
-        for (int i = 0; i < cards.length; i++) {
-            if (i < hand.getCards().length) cards[i] = hand.getCards()[i];
-            else cards[i] = table.getCards()[i - hand.getCards().length];
-        }
+        Card[] cards = CardUtils.merge(table, hand);
         long handBitmask = createBitmask(cards);
 
         // Make sure that we have 7 different cards in the game
