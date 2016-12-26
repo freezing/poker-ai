@@ -2,7 +2,6 @@ package io.freezing.ai.rules.impl.texasholdem;
 
 import io.freezing.ai.domain.CardSuit;
 import io.freezing.ai.domain.HandCategory;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.*;
 
@@ -12,6 +11,7 @@ public class TexasHoldEmEval {
     private static final long FOUR_OF_A_KIND_PATTERNS[];
     private static final long FULL_HOUSE_PATTERNS[];
     private static final long THREE_OF_A_KIND_PATTERNS[];
+    private static final long PAIR_PATTERNS[];
 
     private static final Map<CardSuit, Long> SHIFTS;
     static {
@@ -28,6 +28,7 @@ public class TexasHoldEmEval {
         FOUR_OF_A_KIND_PATTERNS = createFourOfAKindPatterns();
         FULL_HOUSE_PATTERNS = createFullHousePatterns();
         THREE_OF_A_KIND_PATTERNS = createThreeOfAKindPatterns();
+        PAIR_PATTERNS = createPairPatterns();
     }
 
     public static int evaluate(long hand) {
@@ -54,6 +55,12 @@ public class TexasHoldEmEval {
         // Try THREE_OF_A_KIND
         Optional<Integer> threeKindOpt = findAndEvaluate(hand, HandCategory.THREE_OF_A_KIND, THREE_OF_A_KIND_PATTERNS);
         if (threeKindOpt.isPresent()) return threeKindOpt.get();
+
+        
+
+        // Try PAIR
+        Optional<Integer> pairOpt = findAndEvaluate(hand, HandCategory.PAIR, PAIR_PATTERNS);
+        if (pairOpt.isPresent()) return pairOpt.get();
 
         // No pattern found, therefore it's NO_PAIR
         return getRank(hand, 0, HandCategory.NO_PAIR);
@@ -96,17 +103,36 @@ public class TexasHoldEmEval {
         return categoryCode | categoryRankCode | kickerCode;
     }
 
+    private static long[] createPairPatterns() {
+        List<Long> patterns = new ArrayList<>();
+        int suitsLength = CardSuit.values().length;
+
+        for (int cardNum = 0; cardNum < 13; cardNum++) {
+            for (int s1 = 0; s1 < suitsLength; s1++) {
+                for (int s2 = s1 + 1; s2 < suitsLength; s2++) {
+                    long c1 = createCardBitmask(cardNum, CardSuit.values()[s1]);
+                    long c2 = createCardBitmask(cardNum, CardSuit.values()[s2]);
+
+                    long pattern = c1 | c2;
+                    patterns.add(pattern);
+                    CATEGORY_RANK_CODES.put(pattern, cardNum);
+                }
+            }
+        }
+
+        long[] patternsArray = new long[patterns.size()];
+        for (int i = 0; i < patternsArray.length; i++) patternsArray[i] = patterns.get(i);
+        return patternsArray;
+    }
+
     private static long[] createThreeOfAKindPatterns() {
         List<Long> patterns = new ArrayList<>();
         int suitsLength = CardSuit.values().length;
 
         for (int cardNum = 0; cardNum < 13; cardNum++) {
             for (int s1 = 0; s1 < suitsLength; s1++) {
-                for (int s2 = 0; s2 < suitsLength; s2++) {
-                    if (s1 == s2) continue;
-                    for (int s3 = 0; s3 < suitsLength; s3++) {
-                        if (s3 == s1 || s3 == s2) continue;
-
+                for (int s2 = s1 + 1; s2 < suitsLength; s2++) {
+                    for (int s3 = s2 + 1; s3 < suitsLength; s3++) {
                         long c1 = createCardBitmask(cardNum, CardSuit.values()[s1]);
                         long c2 = createCardBitmask(cardNum, CardSuit.values()[s2]);
                         long c3 = createCardBitmask(cardNum, CardSuit.values()[s3]);
