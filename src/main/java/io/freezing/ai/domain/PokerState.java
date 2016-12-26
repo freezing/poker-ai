@@ -4,6 +4,9 @@ public class PokerState {
     // The number of the currently played hand, counting starts at 1
     private final int roundNumber;
 
+    // The total number of players (including bot and opponenets)
+    private final int totalNumberOfPlayers;
+
     // The current size of the small blind
     private final int smallBlind;
 
@@ -25,8 +28,9 @@ public class PokerState {
     // My hand
     private final Hand myHand;
 
-    public PokerState(int roundNumber, int smallBlind, int bigBlind, Table table, int totalPot, int amountToCall, int myStack, Hand myHand) {
+    public PokerState(int roundNumber, int totalNumberOfPlayers, int smallBlind, int bigBlind, Table table, int totalPot, int amountToCall, int myStack, Hand myHand) {
         this.roundNumber = roundNumber;
+        this.totalNumberOfPlayers = totalNumberOfPlayers;
         this.smallBlind = smallBlind;
         this.bigBlind = bigBlind;
         this.table = table;
@@ -38,6 +42,10 @@ public class PokerState {
 
     public int getRoundNumber() {
         return roundNumber;
+    }
+
+    public int getTotalNumberOfPlayers() {
+        return totalNumberOfPlayers;
     }
 
     public int getSmallBlind() {
@@ -72,6 +80,7 @@ public class PokerState {
     public String toString() {
         return "PokerState{" +
                 "roundNumber=" + roundNumber +
+                ", totalNumberOfPlayers=" + totalNumberOfPlayers +
                 ", smallBlind=" + smallBlind +
                 ", bigBlind=" + bigBlind +
                 ", table=" + table +
