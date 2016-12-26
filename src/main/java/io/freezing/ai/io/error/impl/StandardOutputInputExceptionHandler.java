@@ -17,7 +17,7 @@ public class StandardOutputInputExceptionHandler implements PokerInputExceptionH
     @Override
     public void handle(PokerInputException exception) {
         try {
-            this.writer.write(String.format("%s\n", exception.getMessage()));
+            this.writer.write(String.format("Input Error: %s\n", exception.getMessage()));
             this.writer.flush();
         } catch (IOException e) {
             e.printStackTrace();
