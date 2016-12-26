@@ -6,6 +6,7 @@ import io.freezing.ai.bot.impl.texasholdem.simple.SimpleTexasHoldEmPokerBot;
 import io.freezing.ai.bot.impl.texasholdem.simple.SimpleTexasHoldEmPokerBotConfig;
 import io.freezing.ai.domain.PokerState;
 import io.freezing.ai.exception.input.PokerInputException;
+import io.freezing.ai.function.PokerStateUtils;
 import io.freezing.ai.io.error.impl.StandardOutputInputExceptionHandler;
 import io.freezing.ai.io.error.UnhandledExceptionHandler;
 import io.freezing.ai.io.error.impl.StandardUnhandledExceptionHandler;
@@ -52,6 +53,12 @@ public class AIRunner implements AutoCloseable {
 
                 if (stateOpt.isPresent()) {
                     PokerState state = stateOpt.get();
+                    // TODO: Do I want this check here or in the PokerState itself?
+                    // Pros in the PokerState - can't create invalid PokerState
+                    // Cons in the PokerState - Doesn't work if logic is different for other games
+                    //                        - Don't like to have logic like this in the constructor,
+                    //                        - It might have to be unchecked exception which I don't like
+                    PokerStateUtils.validateNoDuplicates(state);
                     BotAction action = bot.nextAction(state);
                     output.handle(action);
                 } else {

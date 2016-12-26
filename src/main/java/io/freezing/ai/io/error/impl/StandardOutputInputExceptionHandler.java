@@ -1,13 +1,13 @@
 package io.freezing.ai.io.error.impl;
 
-import io.freezing.ai.exception.parse.ParseException;
+import io.freezing.ai.exception.input.PokerInputException;
 import io.freezing.ai.io.error.PokerInputExceptionHandler;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 
-public class StandardOutputInputExceptionHandler implements PokerInputExceptionHandler<ParseException> {
+public class StandardOutputInputExceptionHandler implements PokerInputExceptionHandler<PokerInputException> {
     private final OutputStreamWriter writer;
 
     public StandardOutputInputExceptionHandler(OutputStream os) {
@@ -15,7 +15,7 @@ public class StandardOutputInputExceptionHandler implements PokerInputExceptionH
     }
 
     @Override
-    public void handle(ParseException exception) {
+    public void handle(PokerInputException exception) {
         try {
             this.writer.write(String.format("%s\n", exception.getMessage()));
             this.writer.flush();
