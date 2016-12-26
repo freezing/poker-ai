@@ -38,7 +38,7 @@ public class SimpleTexasHoldEmPokerBot implements PokerBot {
 
     private double calculateWinProbability(Table table, Hand hand, int totalNumberOfPlayers) {
         // Initialize here, we want to reuse the same array for performace reasons
-        Hand opponents[] = new Hand[totalNumberOfPlayers];
+        Hand opponents[] = new Hand[totalNumberOfPlayers - 1];
 
         // Start with finding card codes that are not visible to the bot
         int hiddenCardCodes[] = CardUtils.getHiddenCardCodes(table, hand);
