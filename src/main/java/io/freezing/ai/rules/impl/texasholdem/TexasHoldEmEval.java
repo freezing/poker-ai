@@ -71,12 +71,15 @@ public class TexasHoldEmEval {
     }
 
     private static Optional<Integer> findAndEvaluate(long hand, HandCategory handCategory, long[] patterns) {
+        int best = -1;
         for (long p : patterns) {
             if ((p & hand) == p) {
-                return Optional.of(getRank(hand, p, handCategory));
+                best = Math.max(best, getRank(hand, p, handCategory));
             }
         }
-        return Optional.empty();
+
+        if (best == -1) return Optional.empty();
+        else return Optional.of(best);
     }
 
     private static int getRank(long hand, long categoryPattern, HandCategory handCategory) {
@@ -94,18 +97,55 @@ public class TexasHoldEmEval {
         // Remove cards that determine the category
         long leftovers = hand ^ categoryPattern;
 
+        System.out.println("getRank:");
+        printHand(hand);
+        printHand(categoryPattern);
+        printHand(leftovers);
+
         // Remove suits so that we are only left with numbers.
         // Note that in this state all the numbers are going to be different,
         // otherwise they would have been used in the category pattern.
         // To keep only numbers, basically shift the whole number by (0, 16, 32, 48) and take first 16 bits
-        int kickerCode = 0;
+        long upTo5Leftovers = removeLeastSignificantCards(leftovers, 2);
+        int kickerCode = foldHandNumbers(upTo5Leftovers);
+        printHand(upTo5Leftovers);
+        printHand(kickerCode);
+
+        return categoryCode | categoryRankCode | kickerCode;
+    }
+
+    private static long removeLeastSignificantCards(long code, int cardsToRemove) {
+        long removed = code;
+        int cardsLeft = cardsToRemove;
+
+        for (int i = 0; i < 13 && cardsLeft > 0; i++) {
+            for (int suit = 0; suit < 4; suit++) {
+                long removePattern = ~(1L << (i + 16 * suit));
+
+                if (removed != (removed & removePattern)) {
+                    removed &= removePattern;
+                    cardsLeft--;
+                }
+            }
+        }
+
+        // Expect to remove all bits by now
+        if (cardsLeft > 0) {
+            throw new IllegalStateException(String.format("This is a bug for input code: %d and cards to remove left: %d. Input code didn't have at least %d cards and it should have.",
+                    code, cardsLeft, cardsToRemove));
+        }
+
+        return removed;
+    }
+
+    private static int foldHandNumbers(long hand) {
+        int handNumbers = 0;
         for (int i = 0; i < 4; i++) {
             // Could also use 0x1FFF since it represents 13 bits,
             // but for clarity, lets keep 0xFFFF, which represents the group of 16 bits
-            kickerCode |= (leftovers >> (16 * i)) & 0xFFFF;
+            handNumbers |= (int)((hand >> (16 * i)) & 0xFFFF);
         }
-
-        return categoryCode | categoryRankCode | kickerCode;
+        return handNumbers;
     }
 
     private static long[] createPairPatterns() {
@@ -193,10 +233,7 @@ public class TexasHoldEmEval {
         int categoryCode = getCategoryCode(HandCategory.STRAIGHT);
 
         // Fold hand to represent only the numbers
-        int handNumbers = 0;
-        for (int i = 0; i < 4; i++) {
-            handNumbers |= (int)((hand << (i * 16)) & 0xFFFF);
-        }
+        int handNumbers = foldHandNumbers(hand);
 
         // Create STRAIGHT patterns and strengths
         int[] patterns = new int[10];
@@ -343,7 +380,7 @@ public class TexasHoldEmEval {
             patterns[i] = patterns[i - 10] << 16;
             int corresponding = CATEGORY_RANK_CODES.get(patterns[i - 10]);
             CATEGORY_RANK_CODES.put(patterns[i], corresponding);
-//            printHand(patterns[i]);
+
         }
 
         return patterns;
@@ -359,7 +396,7 @@ public class TexasHoldEmEval {
         return handCategory.ordinal() << 24;
     }
 
-    private static void printHand(long hand) {
+    public static void printHand(long hand) {
         StringBuilder sb = new StringBuilder();
         sb.append("[");
 

@@ -4,8 +4,6 @@ import io.freezing.ai.domain.*;
 import io.freezing.ai.function.CardUtils;
 import io.freezing.ai.rules.HandEvaluator;
 
-import java.util.Arrays;
-
 public class TexasHoldEmHandEvaluator implements HandEvaluator {
     @Override
     public EvaluatedHand evaluate(Hand hand, Table table) {
