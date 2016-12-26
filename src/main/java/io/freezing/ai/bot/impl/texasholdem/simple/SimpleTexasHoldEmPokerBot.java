@@ -15,6 +15,7 @@ public class SimpleTexasHoldEmPokerBot implements PokerBot {
 
     @Override
     public BotAction nextAction(PokerState state) {
+        // TODO: Implement, first just calculate the probability
         throw new NotImplementedException();
     }
 
