@@ -1,59 +1,50 @@
 package io.freezing.ai.rules.impl.texasholdem;
 
 import io.freezing.ai.domain.*;
+import io.freezing.ai.function.CardUtils;
 import io.freezing.ai.rules.HandEvaluator;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TexasHoldEmHandEvaluator implements HandEvaluator {
-    private static final int TABLE_PICK_COUNT = 3;
-
-    private final TexasHoldEmWholeHandRanker ranker;
-
-    public TexasHoldEmHandEvaluator() {
-        this.ranker = new TexasHoldEmWholeHandRanker();
+    private static final Map<CardSuit, Long> SHIFTS;
+    static {
+        SHIFTS = new HashMap<>();
+        SHIFTS.put(CardSuit.CLUBS, 0L);
+        SHIFTS.put(CardSuit.DIAMONDS, 16L);
+        SHIFTS.put(CardSuit.HEARTS, 32L);
+        SHIFTS.put(CardSuit.SPADES, 48L);
     }
 
     @Override
     public EvaluatedHand evaluate(Hand hand, Table table) {
-        return findBest(hand, table, 0, new ArrayList<>());
+        Card[] cards = new Card[hand.getCards().length + table.getCards().length];
+        for (int i = 0; i < cards.length; i++) {
+            if (i < hand.getCards().length) cards[i] = hand.getCards()[i];
+            else cards[i] = table.getCards()[i - hand.getCards().length];
+        }
+        long handBitmask = createBitmask(cards);
+        int rank = TexasHoldEmEval.evaluate(handBitmask);
+        return new EvaluatedHand(new WholeHand(hand, table), rank);
     }
 
-    private EvaluatedHand findBest(Hand hand, Table table, int current, List<Integer> picked) {
-        if (picked.size() == TABLE_PICK_COUNT) {
-            WholeHand wholeHand = getWholeHand(hand, table, picked);
-            WholeHandRank wholeHandRank = this.ranker.calculateRank(wholeHand);
-            return new EvaluatedHand(wholeHand, wholeHandRank);
-        } else if (current >= table.getCards().length) {
-            return null;
-        } else {
-            // Find best don't pick current
-            EvaluatedHand h1 = findBest(hand, table, current + 1, picked);
+    private long createBitmask(Card cards[]) {
+        // Create bitmask of hand and table
+        long handBitmask = 0;
 
-            // Find best after picking the current
-            picked.add(current);
-            EvaluatedHand h2 = findBest(hand, table, current + 1, picked);
-            picked.remove(picked.size() - 1);
-
-            // Find EvaluatedHand that is higher
-            if (h1 == null && h2 == null) return null;
-            else if (h1 == null) return h2;
-            else if (h2 == null) return h1;
-            else if (h1.compareTo(h2) == 1) return h1;
-            else return h2;
-        }
-    }
-
-    private WholeHand getWholeHand(Hand hand, Table table, List<Integer> picked) {
-        if (picked.size() != TABLE_PICK_COUNT) {
-            throw new IllegalStateException(String.format("This is probably a bug. Picked: %d, but expected: %d.", picked.size(), TABLE_PICK_COUNT));
+        for (Card c : cards) {
+            CardSuit suit = c.getSuit();
+            int cardNumber = CardUtils.getRank(c.getHeight());
+            handBitmask |= (1L << cardNumber) << SHIFTS.get(suit);
         }
 
-        Card[] tablePicks = new Card[picked.size()];
-        for (int i = 0; i < tablePicks.length; i++) {
-            tablePicks[i] = table.getCards()[ picked.get(i) ];
+        System.out.println(Arrays.deepToString(cards));
+        for (int i = 0; i < 64; i++) {
+            if (((1L << i) & handBitmask) > 0) System.out.println(i);
         }
-        return new WholeHand(hand, tablePicks);
+        System.out.println();
+        return handBitmask;
     }
 }

@@ -29,11 +29,11 @@ public class AIRunner implements AutoCloseable {
     private final PokerBot bot;
 
     // Error handlers
-    private final PokerInputExceptionHandler exceptionHandler;
+    private final PokerInputExceptionHandler<PokerInputException> exceptionHandler;
     private final UnhandledExceptionHandler unhandledExceptionHandler;
 
     public AIRunner(PokerInput input, PokerOutput output,
-                    PokerInputExceptionHandler exceptionHandler,
+                    PokerInputExceptionHandler<PokerInputException> exceptionHandler,
                     UnhandledExceptionHandler unhandledExceptionHandler,
                     PokerBot bot) {
         this.input = input;
