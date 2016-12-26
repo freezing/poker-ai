@@ -1,29 +1,45 @@
 package io.freezing.ai.rules.impl.texasholdem;
 
 import io.freezing.ai.domain.HandCategory;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class TexasHoldEmEval {
     private static final Map<Long, Integer> CATEGORY_RANK_CODES;
     private static final long STRAIGHT_FLUSH_PATTERNS[];
+    private static final long FOUR_OF_A_KIND_PATTERNS[];
+    private static final long FULL_HOUSE_PATTERNS[];
 
     static {
         CATEGORY_RANK_CODES = new HashMap<>();
         STRAIGHT_FLUSH_PATTERNS = createStraightFlushPatterns();
+        FOUR_OF_A_KIND_PATTERNS = createFourOfAKindPatterns();
+        FULL_HOUSE_PATTERNS = createFullHousePatterns();
     }
 
     public static int evaluate(long hand) {
         // Try STRAIGHT_FLUSH
-        for (long p : STRAIGHT_FLUSH_PATTERNS) {
-            if ((p & hand) == p) {
-                return getRank(hand, p, HandCategory.STRAIGHT_FLUSH);
-            }
-        }
+        Optional<Integer> straightFlushOpt = findAndEvaluate(hand, HandCategory.STRAIGHT_FLUSH, STRAIGHT_FLUSH_PATTERNS);
+        if (straightFlushOpt.isPresent()) return straightFlushOpt.get();
+
+        // Try FOUR_OF_A_KIND
+        Optional<Integer> fourKindOpt = findAndEvaluate(hand, HandCategory.FOUR_OF_A_KIND, FOUR_OF_A_KIND_PATTERNS);
+        if (fourKindOpt.isPresent()) return fourKindOpt.get();
 
         // No pattern found, therefore it's NO_PAIR
         return getRank(hand, 0, HandCategory.NO_PAIR);
+    }
+
+    private static Optional<Integer> findAndEvaluate(long hand, HandCategory handCategory, long[] patterns) {
+        for (long p : patterns) {
+            if ((p & hand) == p) {
+                return Optional.of(getRank(hand, p, handCategory));
+            }
+        }
+        return Optional.empty();
     }
 
     private static int getRank(long hand, long categoryPattern, HandCategory handCategory) {
@@ -50,6 +66,27 @@ public class TexasHoldEmEval {
         }
 
         return categoryCode | categoryRankCode | kickerCode;
+    }
+
+    private static long[] createFullHousePatterns() {
+        // There are 13 * 12 patterns like this.
+        // This one is a bit trickier.
+        throw new NotImplementedException();
+    }
+
+    private static long[] createFourOfAKindPatterns() {
+        // There are 13 patterns like this.
+        // Take a pattern with single card (1 bit in range [0, 12]) and copy it 4 times
+        long patterns[] = new long[13];
+
+        for (int i = 0; i < 13; i++) {
+            long cardNumber = 1L << i;
+            patterns[i] = cardNumber | (cardNumber << 16) | (cardNumber << 32) | (cardNumber << 48);
+            // Strength of the pattern is the value of a kind
+            CATEGORY_RANK_CODES.put(patterns[i], i);
+        }
+
+        return patterns;
     }
 
     private static long[] createStraightFlushPatterns() {
