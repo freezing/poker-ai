@@ -270,7 +270,7 @@ public class TexasHoldEmEval {
         // Strength is the same as kicker code in this case because there are no additional cards,
         // therefore just use what's left of hand
         for (int i = 0; i < 4; i++) {
-            int handNumbers = (int)((hand << (i * 16)) & 0xFFFF);
+            int handNumbers = (int)((hand >> (i * 16)) & 0xFFFF);
             int ones = countSetBits(handNumbers);
             if (ones >= 5) {
                 // Delete ones starting from the least-significant bit, until there are exactly 5 left

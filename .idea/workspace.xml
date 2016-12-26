@@ -46,11 +46,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TexasHoldEmHandEvaluatorTest.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TexasHoldEmHandEvaluatorTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/io/freezing/ai/rules/impl/texasholdem/TexasHoldEmHandEvaluatorTest.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="430">
-              <caret line="158" column="64" selection-start-line="158" selection-start-column="64" selection-end-line="158" selection-end-column="64" />
+              <caret line="191" column="67" selection-start-line="191" selection-start-column="67" selection-end-line="191" selection-end-column="67" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -58,11 +58,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TexasHoldEmEval.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TexasHoldEmEval.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/freezing/ai/rules/impl/texasholdem/TexasHoldEmEval.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="349">
-              <caret line="107" column="71" selection-start-line="107" selection-start-column="71" selection-end-line="107" selection-end-column="71" />
+            <state relative-caret-position="365">
+              <caret line="272" column="65" selection-start-line="272" selection-start-column="65" selection-end-line="272" selection-end-column="65" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#16567#16568#0" expanded="true" />
@@ -163,8 +163,8 @@
         <option value="$PROJECT_DIR$/src/main/java/io/freezing/ai/function/CardUtils.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/freezing/ai/rules/impl/texasholdem/TexasHoldEmHandEvaluator.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/freezing/ai/domain/HandCategory.java" />
-        <option value="$PROJECT_DIR$/src/test/java/io/freezing/ai/rules/impl/texasholdem/TexasHoldEmHandEvaluatorTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/freezing/ai/rules/impl/texasholdem/TexasHoldEmEval.java" />
+        <option value="$PROJECT_DIR$/src/test/java/io/freezing/ai/rules/impl/texasholdem/TexasHoldEmHandEvaluatorTest.java" />
       </list>
     </option>
   </component>
@@ -814,20 +814,20 @@
     <history-entry file="TexasHoldEmHandEvaluatorTest_testFlushOrdering - 2016.12.26 at 12h 22m 40s.xml">
       <configuration name="TexasHoldEmHandEvaluatorTest.testFlushOrdering" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TexasHoldEmHandEvaluatorTest_testFourOfAKindOrdering - 2016.12.26 at 12h 02m 03s.xml">
-      <configuration name="TexasHoldEmHandEvaluatorTest.testFourOfAKindOrdering" configurationId="JUnit" />
+    <history-entry file="TexasHoldEmHandEvaluatorTest_testFlushOrdering - 2016.12.26 at 12h 26m 09s.xml">
+      <configuration name="TexasHoldEmHandEvaluatorTest.testFlushOrdering" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TexasHoldEmHandEvaluatorTest_testFourOfAKindOrdering - 2016.12.26 at 12h 02m 31s.xml">
-      <configuration name="TexasHoldEmHandEvaluatorTest.testFourOfAKindOrdering" configurationId="JUnit" />
+    <history-entry file="TexasHoldEmHandEvaluatorTest_testFlushOrdering - 2016.12.26 at 12h 26m 56s.xml">
+      <configuration name="TexasHoldEmHandEvaluatorTest.testFlushOrdering" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TexasHoldEmHandEvaluatorTest_testFourOfAKindOrdering - 2016.12.26 at 12h 02m 44s.xml">
-      <configuration name="TexasHoldEmHandEvaluatorTest.testFourOfAKindOrdering" configurationId="JUnit" />
+    <history-entry file="TexasHoldEmHandEvaluatorTest_testFlushOrdering - 2016.12.26 at 12h 27m 12s.xml">
+      <configuration name="TexasHoldEmHandEvaluatorTest.testFlushOrdering" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TexasHoldEmHandEvaluatorTest_testFourOfAKindOrdering - 2016.12.26 at 12h 03m 14s.xml">
-      <configuration name="TexasHoldEmHandEvaluatorTest.testFourOfAKindOrdering" configurationId="JUnit" />
+    <history-entry file="TexasHoldEmHandEvaluatorTest_testFlushOrdering - 2016.12.26 at 12h 27m 46s.xml">
+      <configuration name="TexasHoldEmHandEvaluatorTest.testFlushOrdering" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TexasHoldEmHandEvaluatorTest_testFourOfAKindOrdering - 2016.12.26 at 12h 06m 09s.xml">
-      <configuration name="TexasHoldEmHandEvaluatorTest.testFourOfAKindOrdering" configurationId="JUnit" />
+    <history-entry file="TexasHoldEmHandEvaluatorTest_testFlushOrdering - 2016.12.26 at 12h 27m 57s.xml">
+      <configuration name="TexasHoldEmHandEvaluatorTest.testFlushOrdering" configurationId="JUnit" />
     </history-entry>
     <history-entry file="TexasHoldEmHandEvaluatorTest_testFullHouseOrdering - 2016.12.26 at 12h 14m 03s.xml">
       <configuration name="TexasHoldEmHandEvaluatorTest.testFullHouseOrdering" configurationId="JUnit" />
@@ -850,7 +850,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32966024" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32966024" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32967034" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -860,7 +860,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39944905" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39944905" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -881,7 +881,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="10" />
+      <option name="time" value="11" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1328,24 +1328,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/io/freezing/ai/rules/impl/texasholdem/TexasHoldEmHandEvaluatorTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="430">
-          <caret line="158" column="64" selection-start-line="158" selection-start-column="64" selection-end-line="158" selection-end-column="64" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/freezing/ai/rules/impl/texasholdem/TexasHoldEmEval.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="107" column="71" selection-start-line="107" selection-start-column="71" selection-end-line="107" selection-end-column="71" />
+        <state relative-caret-position="365">
+          <caret line="272" column="65" selection-start-line="272" selection-start-column="65" selection-end-line="272" selection-end-column="65" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#16567#16568#0" expanded="true" />
             <element signature="e#16630#16631#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/io/freezing/ai/rules/impl/texasholdem/TexasHoldEmHandEvaluatorTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="430">
+          <caret line="191" column="67" selection-start-line="191" selection-start-column="67" selection-end-line="191" selection-end-column="67" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

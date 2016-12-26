@@ -191,9 +191,6 @@ public class TexasHoldEmHandEvaluatorTest {
         EvaluatedHand evalHand5 = evaluator.evaluate(hand5, table);
         EvaluatedHand evalHand6 = evaluator.evaluate(hand6, table);
 
-        System.out.println(evalHand1);
-        System.out.println(evalHand2);
-
         // Hand4 == Hand3
         // Other are in increasing order
         Assert.assertTrue(evalHand1.getRank() < evalHand2.getRank());
