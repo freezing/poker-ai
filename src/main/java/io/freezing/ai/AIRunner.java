@@ -58,7 +58,7 @@ public class AIRunner implements AutoCloseable {
                     // Cons in the PokerState - Doesn't work if logic is different for other games
                     //                        - Don't like to have logic like this in the constructor,
                     //                        - It might have to be unchecked exception which I don't like
-                    PokerStateUtils.validateNoDuplicates(state);
+                    PokerStateUtils.validatePokerState(state, bot.getRules());
                     BotAction action = bot.nextAction(state);
                     output.handle(action);
                 } else {

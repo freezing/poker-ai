@@ -37,6 +37,11 @@ public class TexasHoldEmRules implements PokerRules {
     }
 
     @Override
+    public String getGameName() {
+        return "Texas Hold'Em";
+    }
+
+    @Override
     public int getTimeBankMs() {
         return timeBankMs;
     }

@@ -6,5 +6,6 @@ public interface PokerRules {
     int getHandsPerLevel();
     int getStartingStack();
     int getMaxNumberOfPlayers();
+    String getGameName();
     HandEvaluator getHandEvaluator();
 }

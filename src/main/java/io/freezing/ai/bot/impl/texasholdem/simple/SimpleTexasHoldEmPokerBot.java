@@ -122,6 +122,11 @@ public class SimpleTexasHoldEmPokerBot implements PokerBot {
     }
 
     @Override
+    public TexasHoldEmRules getRules() {
+        return rules;
+    }
+
+    @Override
     public String getName() {
         return SimpleTexasHoldEmPokerBot.class.getSimpleName();
     }

@@ -10,7 +10,7 @@ public class DuplicateCardFoundException extends PokerInputException {
     }
 
     public DuplicateCardFoundException(Card duplicateCard, Table table, Hand hand) {
-        super(String.format("Found duplicate card: %s, for the given table: %s and hand: %s",
+        this(String.format("Found duplicate card: %s, for the given table: %s and hand: %s",
                 duplicateCard.toString(), table.toString(), hand.toString()));
     }
 }

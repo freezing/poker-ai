@@ -3,7 +3,9 @@ package io.freezing.ai.function;
 import io.freezing.ai.domain.Card;
 import io.freezing.ai.domain.PokerState;
 import io.freezing.ai.exception.input.DuplicateCardFoundException;
+import io.freezing.ai.exception.input.MaximumPlayersExceededException;
 import io.freezing.ai.exception.input.PokerInputException;
+import io.freezing.ai.rules.PokerRules;
 import io.freezing.ai.rules.impl.texasholdem.TexasHoldEmRules;
 
 public class PokerStateUtils {
@@ -22,12 +24,19 @@ public class PokerStateUtils {
         }
     }
 
-    private static void validateMaxPlayers(PokerState state, int maxAllowedPlayers) {
-
+    private static void validateMaxPlayers(PokerState state, PokerRules rules) throws MaximumPlayersExceededException {
+        if (state.getTotalNumberOfPlayers() > rules.getMaxNumberOfPlayers()) {
+            throw new MaximumPlayersExceededException(state.getTotalNumberOfPlayers(), rules);
+        }
     }
 
     public static void validateTexasHoldEmPokerState(PokerState state, TexasHoldEmRules rules) throws PokerInputException {
         validateNoDuplicates(state);
-        validateMaxPlayers(state, rules.getMaxNumberOfPlayers());
+        validateMaxPlayers(state, rules);
+    }
+
+    public static void validatePokerState(PokerState state, PokerRules rules) throws PokerInputException {
+        if (rules instanceof TexasHoldEmRules) validateTexasHoldEmPokerState(state, (TexasHoldEmRules) rules);
+        else throw new IllegalArgumentException(String.format("Unknown PokerRules found: %s with name: %s", rules.getClass().getName(), rules.getGameName()));
     }
 }
