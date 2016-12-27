@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e9dbfde0-c0ef-405b-ad2f-efa832c3bf04" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/io/freezing/ai/function/BitUtilsTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/io/freezing/ai/performance/TexasHoldEmEvaluatorSpeedTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/freezing/ai/rules/impl/texasholdem/TexasHoldEmEval.java" afterPath="$PROJECT_DIR$/src/main/java/io/freezing/ai/rules/impl/texasholdem/TexasHoldEmEval.java" />
     </list>
     <ignored path="Poker.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -34,45 +33,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="TexasHoldEmHandEvaluator.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/io/freezing/ai/rules/impl/texasholdem/TexasHoldEmHandEvaluator.java">
+      <file leaf-file-name="TexasHoldEmEvaluatorSpeedTest.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/java/io/freezing/ai/performance/TexasHoldEmEvaluatorSpeedTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="15" column="55" selection-start-line="15" selection-start-column="55" selection-end-line="15" selection-end-column="55" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SimpleTexasHoldEmPokerBot.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/io/freezing/ai/bot/impl/texasholdem/simple/SimpleTexasHoldEmPokerBot.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="36" column="114" selection-start-line="36" selection-start-column="114" selection-end-line="36" selection-end-column="114" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TexasHoldEmEval.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/io/freezing/ai/rules/impl/texasholdem/TexasHoldEmEval.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="383" column="5" selection-start-line="383" selection-start-column="5" selection-end-line="383" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BitUtilsTest.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/java/io/freezing/ai/function/BitUtilsTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.82251084">
-              <caret line="19" column="34" selection-start-line="19" selection-start-column="34" selection-end-line="19" selection-end-column="34" />
+            <state vertical-scroll-proportion="0.73593074">
+              <caret line="35" column="52" selection-start-line="35" selection-start-column="52" selection-end-line="35" selection-end-column="52" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -102,7 +67,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/io/freezing/ai/logic/evaluation/HandEvaluation.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/freezing/ai/logic/evaluation/HandEvaluator.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/freezing/ai/logic/evaluation/TexasHoldEmHandEvaluator.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/freezing/ai/logic/evaluator/TexasHoldEmHandEvaluator.java" />
@@ -153,6 +117,7 @@
         <option value="$PROJECT_DIR$/src/main/java/io/freezing/ai/rules/impl/texasholdem/TexasHoldEmHandEvaluator.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/freezing/ai/rules/impl/texasholdem/TexasHoldEmEval.java" />
         <option value="$PROJECT_DIR$/src/test/java/io/freezing/ai/function/BitUtilsTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/io/freezing/ai/performance/TexasHoldEmEvaluatorSpeedTest.java" />
       </list>
     </option>
   </component>
@@ -299,7 +264,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="function" />
+              <option name="myItemId" value="performance" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -428,33 +393,7 @@
       <recent name="io.freezing.ai.exception.input" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.BitUtilsTest.testCountSetBits">
-    <configuration default="false" name="TexasHoldEmHandEvaluatorTest.testNoPairOrdering" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="io.freezing.ai.rules.impl.texasholdem.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="poker" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="io.freezing.ai.rules.impl.texasholdem" />
-      <option name="MAIN_CLASS_NAME" value="io.freezing.ai.rules.impl.texasholdem.TexasHoldEmHandEvaluatorTest" />
-      <option name="METHOD_NAME" value="testNoPairOrdering" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="JUnit.TexasHoldEmEvaluatorSpeedTest.speedTest">
     <configuration default="false" name="TexasHoldEmHandEvaluatorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -540,6 +479,32 @@
       <option name="PACKAGE_NAME" value="io.freezing.ai.function" />
       <option name="MAIN_CLASS_NAME" value="io.freezing.ai.function.BitUtilsTest" />
       <option name="METHOD_NAME" value="testCountSetBits" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="TexasHoldEmEvaluatorSpeedTest.speedTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="io.freezing.ai.performance.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="poker" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="io.freezing.ai.performance" />
+      <option name="MAIN_CLASS_NAME" value="io.freezing.ai.performance.TexasHoldEmEvaluatorSpeedTest" />
+      <option name="METHOD_NAME" value="speedTest" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -988,19 +953,19 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="JUnit.TexasHoldEmHandEvaluatorTest.testNoPairOrdering" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.TexasHoldEmHandEvaluatorTest" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.TexasHoldEmHandEvaluatorTest.testCategoryOrdering" />
-      <item index="3" class="java.lang.String" itemvalue="Application.AIRunner" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.BitUtilsTest.testCountSetBits" />
+      <item index="0" class="java.lang.String" itemvalue="JUnit.TexasHoldEmHandEvaluatorTest" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.TexasHoldEmHandEvaluatorTest.testCategoryOrdering" />
+      <item index="2" class="java.lang.String" itemvalue="Application.AIRunner" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.BitUtilsTest.testCountSetBits" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.TexasHoldEmEvaluatorSpeedTest.speedTest" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.BitUtilsTest.testCountSetBits" />
-        <item index="1" class="java.lang.String" itemvalue="Application.AIRunner" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.TexasHoldEmHandEvaluatorTest" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.TexasHoldEmHandEvaluatorTest.testCategoryOrdering" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.TexasHoldEmHandEvaluatorTest.testNoPairOrdering" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.TexasHoldEmEvaluatorSpeedTest.speedTest" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.BitUtilsTest.testCountSetBits" />
+        <item index="2" class="java.lang.String" itemvalue="Application.AIRunner" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.TexasHoldEmHandEvaluatorTest" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.TexasHoldEmHandEvaluatorTest.testCategoryOrdering" />
       </list>
     </recent_temporary>
   </component>
@@ -1074,11 +1039,11 @@
     <history-entry file="BitUtilsTest_testCountSetBits - 2016.12.27 at 00h 48m 01s.xml">
       <configuration name="BitUtilsTest.testCountSetBits" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TexasHoldEmHandEvaluatorTest_testCategoryOrdering - 2016.12.26 at 16h 00m 23s.xml">
-      <configuration name="TexasHoldEmHandEvaluatorTest.testCategoryOrdering" configurationId="JUnit" />
+    <history-entry file="TexasHoldEmEvaluatorSpeedTest_speedTest - 2016.12.27 at 00h 58m 43s.xml">
+      <configuration name="TexasHoldEmEvaluatorSpeedTest.speedTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TexasHoldEmHandEvaluatorTest_testNoPairOrdering - 2016.12.26 at 15h 47m 33s.xml">
-      <configuration name="TexasHoldEmHandEvaluatorTest.testNoPairOrdering" configurationId="JUnit" />
+    <history-entry file="TexasHoldEmEvaluatorSpeedTest_speedTest - 2016.12.27 at 00h 59m 00s.xml">
+      <configuration name="TexasHoldEmEvaluatorSpeedTest.speedTest" configurationId="JUnit" />
     </history-entry>
     <history-entry file="TexasHoldEmHandEvaluatorTest_testNoPairOrdering - 2016.12.26 at 15h 48m 09s.xml">
       <configuration name="TexasHoldEmHandEvaluatorTest.testNoPairOrdering" configurationId="JUnit" />
@@ -1102,7 +1067,7 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3282967" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32692307" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="SBT" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -1150,8 +1115,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/src.zip!/java/text/ParseException.java" />
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/src.zip!/java/lang/Integer.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/io/freezing/ai/exception/parse/ParseException.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1549,20 +1512,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/freezing/ai/rules/impl/texasholdem/TexasHoldEmHandEvaluator.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/io/freezing/ai/function/BitUtilsTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="55" selection-start-line="15" selection-start-column="55" selection-end-line="15" selection-end-column="55" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/freezing/ai/bot/impl/texasholdem/simple/SimpleTexasHoldEmPokerBot.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="36" column="114" selection-start-line="36" selection-start-column="114" selection-end-line="36" selection-end-column="114" />
+        <state vertical-scroll-proportion="0.82251084">
+          <caret line="19" column="34" selection-start-line="19" selection-start-column="34" selection-end-line="19" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1571,16 +1524,44 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/freezing/ai/rules/impl/texasholdem/TexasHoldEmEval.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="383" column="5" selection-start-line="383" selection-start-column="5" selection-end-line="383" selection-end-column="5" />
+        <state vertical-scroll-proportion="0.08658009">
+          <caret line="7" column="19" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/io/freezing/ai/function/BitUtilsTest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/freezing/ai/bot/impl/texasholdem/simple/SimpleTexasHoldEmPokerBot.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.82251084">
-          <caret line="19" column="34" selection-start-line="19" selection-start-column="34" selection-end-line="19" selection-end-column="34" />
+        <state vertical-scroll-proportion="3.5497835">
+          <caret line="82" column="5" selection-start-line="82" selection-start-column="5" selection-end-line="82" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/freezing/ai/rules/impl/texasholdem/TexasHoldEmHandEvaluator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.38961038">
+          <caret line="15" column="55" selection-start-line="15" selection-start-column="55" selection-end-line="15" selection-end-column="55" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/src.zip!/java/lang/String.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33285713">
+          <caret line="110" column="19" selection-start-line="110" selection-start-column="19" selection-end-line="110" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/io/freezing/ai/performance/TexasHoldEmEvaluatorSpeedTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.73593074">
+          <caret line="35" column="52" selection-start-line="35" selection-start-column="52" selection-end-line="35" selection-end-column="52" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
