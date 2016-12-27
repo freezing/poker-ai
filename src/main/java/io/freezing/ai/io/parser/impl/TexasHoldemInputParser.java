@@ -66,7 +66,7 @@ public class TexasHoldemInputParser implements PokerInputParser {
         // From here, remaining cards are Table cards; there can be from 0 to 5 cards
         int[] tableIndexes = new int[values.length - nextIdx];
         for (int i = 0; i < tableIndexes.length; i++) tableIndexes[i] = nextIdx + i;
-        Table table                       = new Table(parseCards(values, tableIndexes));
+        Table table = new Table(parseCards(values, tableIndexes));
         // nextIdx += tableIndexes.length;
 
         PokerState state = new PokerState(roundNumber, totalNumberOfPlayers, smallBlind, bigBlind, table, totalPot, amountToCall, myStack, myHand);
