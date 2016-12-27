@@ -46,6 +46,12 @@ public class SimpleTexasHoldEmPokerBot implements PokerBot {
         else if (expectedWin > 0.0 && optimalBet > state.getAmountToCall()) return new CallAction(state.getAmountToCall(), rationale);
         else if (expectedWin > 0.1 * state.getMyStack()) return new CallAction(state.getAmountToCall(), rationale);
         else if (expectedWin > state.getAmountToCall()) return new CallAction(state.getAmountToCall(), rationale);
+        else if (roundState == TexasHoldEmRoundState.TURN &&
+                expectedWin <= 0.0 &&
+                state.getAmountToCall() <= 0.2 * state.getMyStack() &&
+                currentHandStrength > 0.7) {
+            return new CallAction(state.getAmountToCall(), rationale);
+        }
         else if (state.getAmountToCall() == 0) return new CheckAction(rationale);
         // If within the 15% of my pot and I still have good chance of winning
         else if (winProbability > 0.35 && 0.15 * state.getMyStack() > state.getAmountToCall()) return new CallAction(state.getAmountToCall(), rationale);
