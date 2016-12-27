@@ -23,3 +23,6 @@ src_managed/
 project/boot/
 .history
 .cache
+
+# IDEA
+.idea/workspace.xml
