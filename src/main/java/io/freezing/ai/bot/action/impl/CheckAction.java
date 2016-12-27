@@ -5,7 +5,7 @@ import io.freezing.ai.bot.BotActionRationale;
 /** CheckAction is the same as CallAction with 0 amount */
 public class CheckAction extends CallAction {
     public CheckAction(BotActionRationale rationale) {
-        super(0, rationale);
+        super(rationale);
     }
 
     @Override

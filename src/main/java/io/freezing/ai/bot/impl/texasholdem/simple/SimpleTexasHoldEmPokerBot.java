@@ -34,27 +34,30 @@ public class SimpleTexasHoldEmPokerBot implements PokerBot {
         double currentHandStrength = winProbabilityAndCurrentStrength.getValue();
         double expectedWin = winProbability * state.getTotalPot() + (winProbability - 1.0) * state.getAmountToCall();
         double optimalBet = state.getMyStack() * state.getMyStack() * winProbability / (state.getMyStack() + state.getTotalPot() - winProbability * state.getMyStack());
-        BotActionRationale rationale = new SimpleTexasHoldEmRationale(winProbability, expectedWin, optimalBet, currentHandStrength);
 
-        // Do I want this in the rationale?
         TexasHoldEmRoundState roundState = TexasHoldEmTableUtils.getRoundState(state.getTable());
+        boolean isPostFlop = roundState == TexasHoldEmRoundState.TURN || roundState == TexasHoldEmRoundState.RIVER;
+
+        BotActionRationale rationale = new SimpleTexasHoldEmRationale(winProbability, expectedWin, optimalBet, currentHandStrength, state.getAmountToCall(), roundState);
 
         if (winProbability > 0.9) return new RaiseAction(state.getMyStack(), rationale);
+            // If amount to call is very small on TURN and RIVER, just go for it (assuming there is a reasonable chance of winning)
+        else if (isPostFlop && winProbability > 0.15 && currentHandStrength > 0.15 && state.getAmountToCall() < 0.05 * state.getMyStack()) return new CallAction(rationale);
         // In the late state, give more weight to the currentHandStrength, i.e. fold if don't have strong enough hand
-        else if ((roundState == TexasHoldEmRoundState.TURN || roundState == TexasHoldEmRoundState.RIVER) && currentHandStrength < 0.5) return new FoldAction(rationale);
+        else if (isPostFlop && currentHandStrength < 0.5) return new FoldAction(rationale);
         else if (expectedWin > 0.0 && optimalBet > state.getAmountToCall() + state.getBigBlind()) return new RaiseAction(Math.min(optimalBet, state.getMyStack()), rationale);
-        else if (expectedWin > 0.0 && optimalBet > state.getAmountToCall()) return new CallAction(state.getAmountToCall(), rationale);
-        else if (expectedWin > 0.1 * state.getMyStack()) return new CallAction(state.getAmountToCall(), rationale);
-        else if (expectedWin > state.getAmountToCall()) return new CallAction(state.getAmountToCall(), rationale);
+        else if (expectedWin > 0.0 && optimalBet > state.getAmountToCall()) return new CallAction(rationale);
+        else if (expectedWin > 0.1 * state.getMyStack()) return new CallAction(rationale);
+        else if (expectedWin > state.getAmountToCall()) return new CallAction(rationale);
         else if (roundState == TexasHoldEmRoundState.TURN &&
                 expectedWin <= 0.0 &&
                 state.getAmountToCall() <= 0.2 * state.getMyStack() &&
                 currentHandStrength > 0.7) {
-            return new CallAction(state.getAmountToCall(), rationale);
+            return new CallAction(rationale);
         }
         else if (state.getAmountToCall() == 0) return new CheckAction(rationale);
         // If within the 15% of my pot and I still have good chance of winning
-        else if (winProbability > 0.35 && 0.15 * state.getMyStack() > state.getAmountToCall()) return new CallAction(state.getAmountToCall(), rationale);
+        else if (winProbability > 0.35 && 0.15 * state.getMyStack() > state.getAmountToCall()) return new CallAction(rationale);
         else return new FoldAction(rationale);
     }
 
