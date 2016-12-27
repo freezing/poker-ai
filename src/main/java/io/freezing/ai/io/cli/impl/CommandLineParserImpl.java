@@ -16,8 +16,7 @@ public class CommandLineParserImpl implements CommandLineParser {
     // - action => void
 
     @Override
-    public Command parseLine(String _line) {
-        String line = _line.toString();
+    public Command parseLine(String line) {
         logger.info(String.format("Parsing command line: %s", line));
         if (line.startsWith("evaluate")) {
             return new EvaluatePokerStateCommand(line.substring("evaluate ".length()));
