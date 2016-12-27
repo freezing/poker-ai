@@ -89,20 +89,11 @@ public class TexasHoldEmEval {
         // Remove cards that determine the category
         long leftovers = hand ^ categoryPattern;
 
-//        System.out.println("getRank:");
-//        printHand(hand);
-//        printHand(categoryPattern);
-//        printHand(leftovers);
-
-        // Remove suits so that we are only left with numbers.
-        // Note that in this state all the numbers are going to be different,
-        // otherwise they would have been used in the category pattern.
-        // To keep only numbers, basically shift the whole number by (0, 16, 32, 48) and take first 16 bits
+        // Remove 2 weakest cards (by number)
         long upTo5Leftovers = removeLeastSignificantCards(leftovers, 2);
-        int kickerCode = foldHandNumbers(upTo5Leftovers);
-//        printHand(upTo5Leftovers);
-//        printHand(kickerCode);
 
+        // Kicker code is the folded leftover cards (i.e. numbers only)
+        int kickerCode = foldHandNumbers(upTo5Leftovers);
         return categoryCode | categoryRankCode | kickerCode;
     }
 
@@ -130,6 +121,12 @@ public class TexasHoldEmEval {
         return removed;
     }
 
+    /**
+     * Remove suits so that we are only left with numbers.
+     * Note that in this state all the numbers are going to be different,
+     * otherwise they would have been used in the category pattern.
+     * To keep only numbers, basically shift the whole number by (0, 16, 32, 48) and take first 16 bits
+     */
     private static int foldHandNumbers(long hand) {
         int handNumbers = 0;
         for (int i = 0; i < 4; i++) {

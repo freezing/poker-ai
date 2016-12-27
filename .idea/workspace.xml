@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e9dbfde0-c0ef-405b-ad2f-efa832c3bf04" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/freezing/ai/bot/BotActionRationale.java" afterPath="$PROJECT_DIR$/src/main/java/io/freezing/ai/bot/BotActionRationale.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/freezing/ai/bot/impl/texasholdem/simple/SimpleTexasHoldEmPokerBot.java" afterPath="$PROJECT_DIR$/src/main/java/io/freezing/ai/bot/impl/texasholdem/simple/SimpleTexasHoldEmPokerBot.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/freezing/ai/bot/impl/texasholdem/simple/SimpleTexasHoldEmRationale.java" afterPath="$PROJECT_DIR$/src/main/java/io/freezing/ai/bot/impl/texasholdem/simple/SimpleTexasHoldEmRationale.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/freezing/ai/rules/impl/texasholdem/TexasHoldEmEval.java" afterPath="$PROJECT_DIR$/src/main/java/io/freezing/ai/rules/impl/texasholdem/TexasHoldEmEval.java" />
     </list>
     <ignored path="Poker.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -34,14 +32,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="SimpleTexasHoldEmPokerBot.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SimpleTexasHoldEmPokerBot.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/freezing/ai/bot/impl/texasholdem/simple/SimpleTexasHoldEmPokerBot.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8073593">
+            <state vertical-scroll-proportion="0.0">
               <caret line="36" column="114" selection-start-line="36" selection-start-column="114" selection-end-line="36" selection-end-column="114" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TexasHoldEmEval.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/io/freezing/ai/rules/impl/texasholdem/TexasHoldEmEval.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-10.385282">
+              <caret line="139" column="48" selection-start-line="139" selection-start-column="48" selection-end-line="139" selection-end-column="48" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -103,7 +111,6 @@
         <option value="$PROJECT_DIR$/src/main/java/io/freezing/ai/bot/action/impl/CallAction.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/freezing/ai/bot/action/impl/FoldAction.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/freezing/ai/bot/action/impl/RaiseAction.java" />
-        <option value="$PROJECT_DIR$/src/main/java/io/freezing/ai/rules/impl/texasholdem/TexasHoldEmEval.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/freezing/ai/function/CardUtils.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/freezing/ai/bot/impl/texasholdem/simple/SimpleTexasHoldEmPokerBotConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/freezing/ai/function/RandomUtils.java" />
@@ -119,6 +126,7 @@
         <option value="$PROJECT_DIR$/src/main/java/io/freezing/ai/bot/BotActionRationale.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/freezing/ai/bot/impl/texasholdem/simple/SimpleTexasHoldEmRationale.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/freezing/ai/bot/impl/texasholdem/simple/SimpleTexasHoldEmPokerBot.java" />
+        <option value="$PROJECT_DIR$/src/main/java/io/freezing/ai/rules/impl/texasholdem/TexasHoldEmEval.java" />
       </list>
     </option>
   </component>
@@ -1008,7 +1016,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1439" height="797" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1018,7 +1026,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32692307" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32692307" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32967034" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25017372" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1305,16 +1313,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/freezing/ai/rules/impl/texasholdem/TexasHoldEmEval.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="239" column="35" selection-start-line="239" selection-start-column="33" selection-end-line="239" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/freezing/ai/bot/impl/texasholdem/simple/SimpleTexasHoldEmPokerBotConfig.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1490,11 +1488,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/freezing/ai/bot/impl/texasholdem/simple/SimpleTexasHoldEmPokerBot.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8073593">
+        <state vertical-scroll-proportion="0.0">
           <caret line="36" column="114" selection-start-line="36" selection-start-column="114" selection-end-line="36" selection-end-column="114" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/freezing/ai/rules/impl/texasholdem/TexasHoldEmEval.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.385282">
+          <caret line="139" column="48" selection-start-line="139" selection-start-column="48" selection-end-line="139" selection-end-column="48" />
+          <folding />
         </state>
       </provider>
     </entry>
