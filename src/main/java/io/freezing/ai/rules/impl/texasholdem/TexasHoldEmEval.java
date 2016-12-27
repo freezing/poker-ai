@@ -381,6 +381,6 @@ public class TexasHoldEmEval {
     }
 
     public static long createCardBitmask(int cardNumber, CardSuit suit) {
-        return (1L << cardNumber) << (CardUtils.getSuiteCode(suit) * 16);
+        return (1L << cardNumber) << (suit.ordinal() * 16);
     }
 }

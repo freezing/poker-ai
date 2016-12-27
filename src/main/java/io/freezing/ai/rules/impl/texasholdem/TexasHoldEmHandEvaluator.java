@@ -20,7 +20,7 @@ public class TexasHoldEmHandEvaluator implements HandEvaluator {
 
         for (Card c : cards) {
             CardSuit suit = c.getSuit();
-            int cardNumber = CardUtils.getRank(c.getHeight());
+            int cardNumber = c.getHeight().ordinal();
             handBitmask |= TexasHoldEmEval.createCardBitmask(cardNumber, suit);
         }
         return handBitmask;

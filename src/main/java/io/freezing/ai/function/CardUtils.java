@@ -31,38 +31,8 @@ public class CardUtils {
         return cards;
     }
 
-    public static int getSuiteCode(CardSuit suit) {
-        switch (suit) {
-            case CLUBS:    return 0;
-            case SPADES:   return 1;
-            case DIAMONDS: return 2;
-            case HEARTS:   return 3;
-            default:       throw new IllegalStateException(String.format("Unknown CardSuit found: %s", suit.toString()));
-        }
-    }
-
-    // TODO: This is the same as height.ordinal()
-    public static int getRank(CardHeight height) {
-        switch (height) {
-            case DEUCE: return 0;
-            case THREE: return 1;
-            case FOUR:  return 2;
-            case FIVE:  return 3;
-            case SIX:   return 4;
-            case SEVEN: return 5;
-            case EIGHT: return 6;
-            case NINE:  return 7;
-            case TEN:   return 8;
-            case JACK:  return 9;
-            case QUEEN: return 10;
-            case KING:  return 11;
-            case ACE:   return 12;
-            default:    throw new RuntimeException(String.format("Unknown CardHeight: %s", height.toString()));
-        }
-    }
-
     public static int getCardCode(Card card) {
-        return getSuiteCode(card.getSuit()) * CardHeight.values().length + getRank(card.getHeight());
+        return card.getSuit().ordinal() * CardHeight.values().length + card.getHeight().ordinal();
     }
 
     public static Card getCard(int cardCode) {
@@ -70,25 +40,11 @@ public class CardUtils {
     }
 
     public static CardSuit getSuit(int suitCode) {
-        for (CardSuit suit : CardSuit.values()) {
-            if (getSuiteCode(suit) == suitCode) {
-                return suit;
-            }
-        }
-        throw new IllegalArgumentException(
-                String.format("Couldn't find the corresponding CardSuit for the given suitCode: %d", suitCode)
-        );
+        return CardSuit.values()[suitCode];
     }
 
     public static CardHeight getHeight(int rank) {
-        for (CardHeight height : CardHeight.values()) {
-            if (getRank(height) == rank) {
-                return height;
-            }
-        }
-        throw new IllegalArgumentException(
-                String.format("Couldn't find the corresponding CardHeight for the given rank: %d", rank)
-        );
+        return CardHeight.values()[rank];
     }
 
     public static String buildString(long hand) {

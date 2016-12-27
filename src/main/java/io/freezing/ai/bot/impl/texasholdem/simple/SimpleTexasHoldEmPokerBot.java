@@ -86,13 +86,13 @@ public class SimpleTexasHoldEmPokerBot implements PokerBot {
     // Good means both heights are above or equal to TEN
     private boolean isGoodPreFlop(Hand hand) {
         Card[] cards = hand.getCards();
-        return CardUtils.getRank(cards[0].getHeight()) >= CardUtils.getRank(CardHeight.TEN) &&
-                CardUtils.getRank(cards[1].getHeight()) >= CardUtils.getRank(CardHeight.TEN);
+        return cards[0].getHeight().ordinal() >= CardHeight.TEN.ordinal() &&
+                cards[1].getHeight().ordinal() >= CardHeight.TEN.ordinal();
     }
 
     private boolean isReallyGoodPreFlop(Hand hand) {
         Card[] cards = hand.getCards();
-        return CardUtils.getRank(cards[0].getHeight()) > CardUtils.getRank(CardHeight.TEN) && cards[0].getHeight() == cards[1].getHeight();
+        return cards[0].getHeight().ordinal() > CardHeight.TEN.ordinal() && cards[0].getHeight() == cards[1].getHeight();
     }
 
     private Pair<Double, Double> calculateWinProbabilityAndCurrentStrength(Table table, Hand hand, int totalNumberOfPlayers) {
