@@ -52,6 +52,7 @@ public class TexasHoldEmEvaluatorSpeedTest {
 
         System.out.println(String.format("Total time to evaluate %d hands: %f", EVALUATIONS, totalSeconds));
         System.out.println(String.format("Evaluations per second: %f", evaluationsPerSecond));
+        Assert.assertTrue(evaluationsPerSecond > 100000);
     }
 
     @Test
@@ -71,5 +72,6 @@ public class TexasHoldEmEvaluatorSpeedTest {
 
         System.out.println(String.format("Total time to evaluate %d hands: %f", EVALUATIONS, totalSeconds));
         System.out.println(String.format("Evaluations per second: %f", evaluationsPerSecond));
+        Assert.assertTrue(evaluationsPerSecond > 300000);
     }
 }
