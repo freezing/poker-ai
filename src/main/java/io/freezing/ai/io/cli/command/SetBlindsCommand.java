@@ -21,4 +21,9 @@ public class SetBlindsCommand implements Command {
     public String toString() {
         return String.format("SetBlindsCommand(smallBlind = %d, bigBlind = %d)", smallBlind, bigBlind);
     }
+
+    @Override
+    public String get() {
+        return "set-blinds";
+    }
 }

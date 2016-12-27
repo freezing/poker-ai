@@ -15,4 +15,9 @@ public class EvaluatePokerStateCommand implements Command {
     public String toString() {
         return String.format("EvaluatePokerStateCommand(state = %s)", line);
     }
+
+    @Override
+    public String get() {
+        return "evaluate";
+    }
 }
