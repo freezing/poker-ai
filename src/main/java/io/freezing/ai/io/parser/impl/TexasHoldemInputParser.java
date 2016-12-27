@@ -12,10 +12,11 @@ import java.util.logging.Logger;
 
 /**
  * Implementation of the PokerState parser. Format:
- * RoundNumber TotalNumberOfPlayers SmallBlind BigBlind TotalPot AmountToCall MyStack MyHand Table
+ * RoundNumber TotalNumberOfPlayers MyPosition SmallBlind BigBlind TotalPot AmountToCall MyStack MyHand Table
  *
  * RoundNumber          - Int
  * TotalNumberOfPlayers - Int
+ * MyPosition           - Int
  * SmallBlind           - Int
  * BigBlind             - Int
  * TotalPot             - Int
@@ -29,13 +30,13 @@ import java.util.logging.Logger;
  * Height       - Char from {2, 3, 4, 5, 6, 7, 8, 9, T, J, Q, K, A}
  *
  * Example:
- * 1 5 50 100 250 100 1000 S12 D4 H4 HT DJ CA S7
+ * 1 5 1 50 100 250 100 1000 S12 D4 H4 HT DJ CA S7
  */
 public class TexasHoldemInputParser implements PokerInputParser {
     private static final Logger logger = Logger.getLogger(TexasHoldemInputParser.class.getName());
 
-    private static final int MIN_EXPECTED_TOKENS = 9;
-    private static final int MAX_EXPECTED_TOKENS = 14;
+    private static final int MIN_EXPECTED_TOKENS = 10;
+    private static final int MAX_EXPECTED_TOKENS = 15;
 
     @Override
     public PokerState parse(String stateString) throws ParseException {
@@ -54,6 +55,7 @@ public class TexasHoldemInputParser implements PokerInputParser {
 
         int roundNumber             = parseInt(values, nextIdx++);
         int totalNumberOfPlayers    = parseInt(values, nextIdx++);
+        int myPosition              = parseInt(values, nextIdx++);
         int smallBlind              = parseInt(values, nextIdx++);
         int bigBlind                = parseInt(values, nextIdx++);
         int totalPot                = parseInt(values, nextIdx++);
@@ -69,14 +71,14 @@ public class TexasHoldemInputParser implements PokerInputParser {
         Table table = new Table(parseCards(values, tableIndexes));
         // nextIdx += tableIndexes.length;
 
-        PokerState state = new PokerState(roundNumber, totalNumberOfPlayers, smallBlind, bigBlind, table, totalPot, amountToCall, myStack, myHand);
+        PokerState state = new PokerState(roundNumber, totalNumberOfPlayers, smallBlind, bigBlind, table, totalPot, amountToCall, myStack, myPosition, myHand);
         logger.info(String.format("Parsed state: %s", state.toString()));
         return state;
     }
 
     @Override
     public String getFormat() {
-        return "<RoundNumber> <TotalNumberOfPlayers> <SmallBlind> <BigBlind> <TotalPot> <AmountToCall> <MyStack> <MyHand> <Table>";
+        return "<RoundNumber> <TotalNumberOfPlayers> <MyPosition> <SmallBlind> <BigBlind> <TotalPot> <AmountToCall> <MyStack> <MyHand> <Table>";
     }
 
     private int parseInt(String values[], int idx) throws ParseException {

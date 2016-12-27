@@ -25,10 +25,13 @@ public class PokerState {
     // The amount of chips that I have left in the stack
     private final int myStack;
 
+    // The distance from the BigBlind
+    private final int myPosition;
+
     // My hand
     private final Hand myHand;
 
-    public PokerState(int roundNumber, int totalNumberOfPlayers, int smallBlind, int bigBlind, Table table, int totalPot, int amountToCall, int myStack, Hand myHand) {
+    public PokerState(int roundNumber, int totalNumberOfPlayers, int smallBlind, int bigBlind, Table table, int totalPot, int amountToCall, int myStack, int myPosition, Hand myHand) {
         this.roundNumber = roundNumber;
         this.totalNumberOfPlayers = totalNumberOfPlayers;
         this.smallBlind = smallBlind;
@@ -37,6 +40,7 @@ public class PokerState {
         this.totalPot = totalPot;
         this.amountToCall = amountToCall;
         this.myStack = myStack;
+        this.myPosition = myPosition;
         this.myHand = myHand;
 
         if (totalNumberOfPlayers <= 1) {
@@ -74,6 +78,10 @@ public class PokerState {
 
     public int getMyStack() {
         return myStack;
+    }
+
+    public int getMyPosition() {
+        return myPosition;
     }
 
     public Hand getMyHand() {

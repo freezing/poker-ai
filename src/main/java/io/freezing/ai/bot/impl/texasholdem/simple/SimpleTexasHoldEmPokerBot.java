@@ -43,7 +43,10 @@ public class SimpleTexasHoldEmPokerBot implements PokerBot {
         // TODO: Handle high risk situations, i.e. ones that are potentially losing a lot of money
 
         if (winProbability > 0.9) return new RaiseAction(state.getMyStack(), rationale);
-            // If amount to call is very small on TURN and RIVER, just go for it (assuming there is a reasonable chance of winning)
+        else if (roundState == TexasHoldEmRoundState.PRE_FLOP) {
+            return findPreFlopAction(state, winProbability, currentHandStrength, expectedWin, optimalBet);
+        }
+        // If amount to call is very small on TURN and RIVER, just go for it (assuming there is a reasonable chance of winning)
         else if (isPostFlop && winProbability > 0.15 && currentHandStrength > 0.15 && state.getAmountToCall() < 0.05 * state.getMyStack()) return new CallAction(rationale);
         // In the late state, give more weight to the currentHandStrength, i.e. fold if don't have strong enough hand
         else if (isPostFlop && currentHandStrength < 0.5) return new FoldAction(rationale);
@@ -61,6 +64,10 @@ public class SimpleTexasHoldEmPokerBot implements PokerBot {
         // If within the 15% of my stack and I still have good chance of winning
         else if (winProbability > 0.35 && 0.15 * state.getMyStack() > state.getAmountToCall()) return new CallAction(rationale);
         else return new FoldAction(rationale);
+    }
+
+    private BotAction findPreFlopAction(PokerState state, double winProbability, double currentHandStrength, double expectedWin, double optimalBet) {
+        return null;
     }
 
     private Pair<Double, Double> calculateWinProbabilityAndCurrentStrength(Table table, Hand hand, int totalNumberOfPlayers) {
