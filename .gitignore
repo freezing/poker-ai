@@ -26,3 +26,4 @@ project/boot/
 
 # IDEA
 .idea/workspace.xml
+.idea/tasks.xml
