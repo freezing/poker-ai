@@ -83,7 +83,7 @@ public class TexasHoldemInputParser implements PokerInputParser {
         try {
             return Integer.parseInt(values[idx]);
         } catch (NumberFormatException e) {
-            throw new ParseException(String.format("Parsing failed at index: %d. Message: %s.", idx, e.getMessage()));
+            throw new ParseException(String.format("Parsing failed at index: %d. NumberFormatException(%s).", idx, e.getMessage()));
         }
     }
 
