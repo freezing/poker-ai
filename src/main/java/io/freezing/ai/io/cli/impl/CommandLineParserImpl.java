@@ -22,10 +22,10 @@ public class CommandLineParserImpl implements CommandLineParser {
         String line = rawLine.trim();
         logger.info(String.format("Parsing command line: %s", line));
 
-        if (line.startsWith("evaluate ")) {
-            return new EvaluatePokerStateCommand(line.substring("evaluate ".length()));
-        } else if (line.startsWith("evaluate-image ")) {
+        if (line.startsWith("evaluate-image")) {
             return new EvaluateImagePokerStateCommand(Paths.get(line.substring("evaluate-image ".length())));
+        } else if (line.startsWith("evaluate")) {
+            return new EvaluatePokerStateCommand(line.substring("evaluate ".length()));
         }
 
         throw new NotImplementedException();
