@@ -382,11 +382,4 @@ public class TexasHoldEmEval {
     public static long createCardBitmask(int cardNumber, CardSuit suit) {
         return (1L << cardNumber) << (CardUtils.getSuiteCode(suit) * 16);
     }
-
-    public static void main(String[] args) {
-        System.out.println(BitUtils.countSetBits(15)); // 4
-        System.out.println(BitUtils.countSetBits(8)); // 1
-        System.out.println(BitUtils.countSetBits(2147483150)); // 25
-        System.out.println(BitUtils.countSetBits(17920377)); // 12
-    }
 }
