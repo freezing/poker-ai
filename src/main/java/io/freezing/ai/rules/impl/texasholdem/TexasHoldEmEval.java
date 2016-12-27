@@ -2,6 +2,7 @@ package io.freezing.ai.rules.impl.texasholdem;
 
 import io.freezing.ai.domain.CardSuit;
 import io.freezing.ai.domain.HandCategory;
+import io.freezing.ai.function.BitUtils;
 import io.freezing.ai.function.CardUtils;
 
 import java.util.*;
@@ -259,14 +260,14 @@ public class TexasHoldEmEval {
         // therefore just use what's left of hand
         for (int i = 0; i < 4; i++) {
             int handNumbers = (int)((hand >> (i * 16)) & 0xFFFF);
-            int ones = countSetBits(handNumbers);
+            int ones = BitUtils.countSetBits(handNumbers);
             if (ones >= 5) {
                 // Delete ones starting from the least-significant bit, until there are exactly 5 left
                 for (int bit = 0; bit < 13 && ones > 5; bit++) {
                     // Remove bit-th bit
                     int removePattern = ~(1 << bit); // All ones except for bit-th bit
                     handNumbers &= removePattern;
-                    ones = countSetBits(handNumbers);
+                    ones = BitUtils.countSetBits(handNumbers);
                 }
 
                 if (ones != 5) throw new IllegalStateException(String.format("Expected that number of ones in hand: %d is 5 but got: %d", handNumbers, ones));
@@ -276,15 +277,6 @@ public class TexasHoldEmEval {
         }
 
         return Optional.empty();
-    }
-
-    public static int countSetBits(int n) {
-        n = n - ((n >> 1) & 0x55555555);
-        n = (n & 0x33333333) + ((n >> 2) & 0x33333333);
-        n = (n + (n >> 4)) & 0x0F0F0F0F;
-        n = n + (n >> 8);
-        n = n + (n >> 16);
-        return n & 0x0000003F;
     }
 
 
@@ -392,9 +384,9 @@ public class TexasHoldEmEval {
     }
 
     public static void main(String[] args) {
-        System.out.println(countSetBits(15)); // 4
-        System.out.println(countSetBits(8)); // 1
-        System.out.println(countSetBits(2147483150)); // 25
-        System.out.println(countSetBits(17920377)); // 12
+        System.out.println(BitUtils.countSetBits(15)); // 4
+        System.out.println(BitUtils.countSetBits(8)); // 1
+        System.out.println(BitUtils.countSetBits(2147483150)); // 25
+        System.out.println(BitUtils.countSetBits(17920377)); // 12
     }
 }
