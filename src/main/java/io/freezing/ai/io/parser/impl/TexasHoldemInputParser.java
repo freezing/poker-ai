@@ -34,8 +34,8 @@ import java.util.logging.Logger;
 public class TexasHoldemInputParser implements PokerInputParser {
     private static final Logger logger = Logger.getLogger(TexasHoldemInputParser.class.getName());
 
-    private static final int MIN_EXPECTED_TOKENS = 14;
-    private static final int MAX_EXPECTED_TOKENS = 19;
+    private static final int MIN_EXPECTED_TOKENS = 9;
+    private static final int MAX_EXPECTED_TOKENS = 14;
 
     @Override
     public PokerState parse(String stateString) throws ParseException {
