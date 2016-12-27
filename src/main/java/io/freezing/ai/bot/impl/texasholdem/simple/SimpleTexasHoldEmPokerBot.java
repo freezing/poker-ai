@@ -28,10 +28,13 @@ public class SimpleTexasHoldEmPokerBot implements PokerBot {
     @Override
     public BotAction nextAction(PokerState state) {
         double winProbability = calculateWinProbability(state.getTable(), state.getMyHand(), state.getTotalNumberOfPlayers());
-        BotActionRationale rationale = new SimpleTexasHoldEmRationale(winProbability);
+        double expectedWin = winProbability * state.getTotalPot() + (winProbability - 1.0) * state.getAmountToCall();
+        BotActionRationale rationale = new SimpleTexasHoldEmRationale(winProbability, expectedWin);
 
         if (winProbability > 0.9) return new RaiseAction(state.getMyStack(), rationale);
         else if (winProbability > 0.5) return new RaiseAction(state.getMyStack() / 2, rationale);
+        else if (expectedWin > 0.1 * state.getMyStack()) return new CallAction(state.getAmountToCall(), rationale);
+        else if (expectedWin > state.getAmountToCall()) return new CallAction(state.getAmountToCall(), rationale);
         else if (state.getAmountToCall() == 0) return new CheckAction(rationale);
         // If within the 15% of my pot and I still have good chance of winning
         else if (winProbability > 0.35 && 0.15 * state.getMyStack() > state.getAmountToCall()) return new CallAction(state.getAmountToCall(), rationale);
@@ -39,7 +42,7 @@ public class SimpleTexasHoldEmPokerBot implements PokerBot {
     }
 
     private double calculateWinProbability(Table table, Hand hand, int totalNumberOfPlayers) {
-        // Initialize here, we want to reuse the same array for performace reasons
+        // Initialize here, we want to reuse the same array for performance reasons
         Hand opponents[] = new Hand[totalNumberOfPlayers - 1];
 
         // Start with finding card codes that are not visible to the bot
