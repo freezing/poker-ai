@@ -42,8 +42,8 @@ public class SimpleTexasHoldEmPokerBot implements PokerBot {
         if (winProbability > 0.9) return new RaiseAction(state.getMyStack(), rationale);
         // In the late state, give more weight to the currentHandStrength, i.e. fold if don't have strong enough hand
         else if ((roundState == TexasHoldEmRoundState.TURN || roundState == TexasHoldEmRoundState.RIVER) && currentHandStrength < 0.5) return new FoldAction(rationale);
-        else if (optimalBet > state.getAmountToCall() + state.getBigBlind()) return new RaiseAction(Math.min(optimalBet, state.getMyStack()), rationale);
-        else if (optimalBet > state.getAmountToCall()) return new CallAction(state.getAmountToCall(), rationale);
+        else if (expectedWin > 0.0 && optimalBet > state.getAmountToCall() + state.getBigBlind()) return new RaiseAction(Math.min(optimalBet, state.getMyStack()), rationale);
+        else if (expectedWin > 0.0 && optimalBet > state.getAmountToCall()) return new CallAction(state.getAmountToCall(), rationale);
         else if (expectedWin > 0.1 * state.getMyStack()) return new CallAction(state.getAmountToCall(), rationale);
         else if (expectedWin > state.getAmountToCall()) return new CallAction(state.getAmountToCall(), rationale);
         else if (state.getAmountToCall() == 0) return new CheckAction(rationale);
