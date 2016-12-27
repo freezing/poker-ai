@@ -16,15 +16,24 @@ public class TexasHoldEmRules implements PokerRules {
     // Amount of chips that each player starts the game with
     private final int startingStack;
 
+    // Maximum number of players per table
+    private final int maxNumberOfPlayers;
+
     // Ranking logic for Hand and Table
     private final HandEvaluator handEvaluator;
 
-    public TexasHoldEmRules(int timeBankMs, int timePerMoveMs, int handsPerLevel, int startingStack, TexasHoldEmHandEvaluator handEvaluator) {
+    public TexasHoldEmRules(int maxNumberOfPlayers, int timeBankMs, int timePerMoveMs, int handsPerLevel, int startingStack, TexasHoldEmHandEvaluator handEvaluator) {
+        this.maxNumberOfPlayers = maxNumberOfPlayers;
         this.timeBankMs = timeBankMs;
         this.timePerMoveMs = timePerMoveMs;
         this.handsPerLevel = handsPerLevel;
         this.startingStack = startingStack;
         this.handEvaluator = handEvaluator;
+    }
+
+    @Override
+    public int getMaxNumberOfPlayers() {
+        return maxNumberOfPlayers;
     }
 
     @Override
@@ -52,5 +61,5 @@ public class TexasHoldEmRules implements PokerRules {
         return handEvaluator;
     }
 
-    public int getFinalTableLength() { return 5; }
+    public int getMaxNumberOfTableCards() { return 5; }
 }

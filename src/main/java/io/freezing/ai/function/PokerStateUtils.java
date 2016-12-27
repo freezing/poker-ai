@@ -4,6 +4,7 @@ import io.freezing.ai.domain.Card;
 import io.freezing.ai.domain.PokerState;
 import io.freezing.ai.exception.input.DuplicateCardFoundException;
 import io.freezing.ai.exception.input.PokerInputException;
+import io.freezing.ai.rules.impl.texasholdem.TexasHoldEmRules;
 
 public class PokerStateUtils {
     public static void validateNoDuplicates(PokerState state) throws PokerInputException {
@@ -19,5 +20,14 @@ public class PokerStateUtils {
                 codesFound[cardCode] = true;
             }
         }
+    }
+
+    private static void validateMaxPlayers(PokerState state, int maxAllowedPlayers) {
+
+    }
+
+    public static void validateTexasHoldEmPokerState(PokerState state, TexasHoldEmRules rules) throws PokerInputException {
+        validateNoDuplicates(state);
+        validateMaxPlayers(state, rules.getMaxNumberOfPlayers());
     }
 }

@@ -91,7 +91,7 @@ public class AIRunner implements AutoCloseable {
         UnhandledExceptionHandler unhandledExceptionHandler = new StandardUnhandledExceptionHandler(System.err);
 
         // Create Simple AI Bot
-        TexasHoldEmRules rules = new TexasHoldEmRules(60000, 0, 10, 1000, new TexasHoldEmHandEvaluator());
+        TexasHoldEmRules rules = new TexasHoldEmRules(9, 60000, 0, 10, 1000, new TexasHoldEmHandEvaluator());
         PokerBot bot = new SimpleTexasHoldEmPokerBot(rules, new SimpleTexasHoldEmPokerBotConfig(10000, 186544L));
 
         // Initialize AI Runner

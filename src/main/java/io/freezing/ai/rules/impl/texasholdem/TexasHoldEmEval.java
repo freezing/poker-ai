@@ -90,7 +90,7 @@ public class TexasHoldEmEval {
         // Remove cards that determine the category
         long leftovers = hand ^ categoryPattern;
 
-        // Remove 2 weakest cards (by number)
+        // Remove weakest cards (by number), until there are at most 5 left
         int toRemove = Math.max(0, BitUtils.countSetBits(leftovers) - 5);
         long upTo5Leftovers = removeLeastSignificantCards(leftovers, toRemove);
 

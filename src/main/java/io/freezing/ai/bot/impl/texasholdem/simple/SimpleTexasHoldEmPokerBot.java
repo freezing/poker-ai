@@ -85,9 +85,9 @@ public class SimpleTexasHoldEmPokerBot implements PokerBot {
 
     private Table assignCardsToTable(int offset, Card[] hiddenCards, Table table) {
         // Desired total number of cards is 5
-        if (table.getCards().length == rules.getFinalTableLength()) return table;
+        if (table.getCards().length == rules.getMaxNumberOfTableCards()) return table;
 
-        Card[] cards = new Card[rules.getFinalTableLength()];
+        Card[] cards = new Card[rules.getMaxNumberOfTableCards()];
         int storeIdx = 0;
         for (Card c : table.getCards()) cards[storeIdx++] = c;
 

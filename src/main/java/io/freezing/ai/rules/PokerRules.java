@@ -5,5 +5,6 @@ public interface PokerRules {
     int getTimePerMoveMs();
     int getHandsPerLevel();
     int getStartingStack();
+    int getMaxNumberOfPlayers();
     HandEvaluator getHandEvaluator();
 }
