@@ -40,6 +40,8 @@ public class SimpleTexasHoldEmPokerBot implements PokerBot {
 
         BotActionRationale rationale = new SimpleTexasHoldEmRationale(winProbability, expectedWin, optimalBet, currentHandStrength, state.getAmountToCall(), roundState);
 
+        // TODO: Handle high risk situations, i.e. ones that are potentially losing a lot of money
+
         if (winProbability > 0.9) return new RaiseAction(state.getMyStack(), rationale);
             // If amount to call is very small on TURN and RIVER, just go for it (assuming there is a reasonable chance of winning)
         else if (isPostFlop && winProbability > 0.15 && currentHandStrength > 0.15 && state.getAmountToCall() < 0.05 * state.getMyStack()) return new CallAction(rationale);
@@ -56,7 +58,7 @@ public class SimpleTexasHoldEmPokerBot implements PokerBot {
             return new CallAction(rationale);
         }
         else if (state.getAmountToCall() == 0) return new CheckAction(rationale);
-        // If within the 15% of my pot and I still have good chance of winning
+        // If within the 15% of my stack and I still have good chance of winning
         else if (winProbability > 0.35 && 0.15 * state.getMyStack() > state.getAmountToCall()) return new CallAction(rationale);
         else return new FoldAction(rationale);
     }
