@@ -8,13 +8,13 @@ import io.freezing.ai.io.message.impl.StringPokerMessage;
 import io.freezing.ai.io.parser.PokerInputParser;
 
 import java.io.InputStream;
-import java.util.Optional;
 import java.util.Scanner;
+import java.util.Optional;
 
 public class StandardPokerInput implements PokerInput {
-    private final Scanner sc;
     private final PokerInputParser parser;
     private final PokerMessageHandler<StringPokerMessage> pokerMessageHandler;
+    private final Scanner sc;
 
     public StandardPokerInput(InputStream is,
                               PokerInputParser parser,

@@ -1,4 +1,4 @@
-package io.freezing.ai;
+package io.freezing.ai.runner;
 
 import io.freezing.ai.bot.PokerBot;
 import io.freezing.ai.bot.action.BotAction;
@@ -20,6 +20,7 @@ import io.freezing.ai.io.parser.impl.TexasHoldemInputParser;
 import io.freezing.ai.rules.impl.texasholdem.TexasHoldEmHandEvaluator;
 import io.freezing.ai.rules.impl.texasholdem.TexasHoldEmRules;
 
+import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -45,32 +46,44 @@ public class AIRunner implements AutoCloseable {
         this.bot = bot;
     }
 
-    public void run() {
-        while (true) {
-            try {
-                // TODO: Can I do something nice as using Extractors in Scala?
-                Optional<PokerState> stateOpt = this.input.getNextState();
+    public void singleRun() {
+        try {
+            // TODO: Can I do something nice as using Extractors in Scala?
+            Optional<PokerState> stateOpt = this.input.getNextState();
 
-                if (stateOpt.isPresent()) {
-                    PokerState state = stateOpt.get();
-                    // TODO: Do I want this check here or in the PokerState itself?
-                    // Pros in the PokerState - can't create invalid PokerState
-                    // Cons in the PokerState - Doesn't work if logic is different for other games
-                    //                        - Don't like to have logic like this in the constructor,
-                    //                        - It might have to be unchecked exception which I don't like
-                    PokerStateUtils.validatePokerState(state, bot.getRules());
-                    BotAction action = bot.nextAction(state);
-                    output.handle(action);
-                } else {
-                    // No more input
-                    logger.info("Shutting down the AI Runner. No more input expected.");
-                    return;
-                }
-            } catch (PokerInputException e) {
-                exceptionHandler.handle(e);
-            } catch (Exception e) {
-                unhandledExceptionHandler.handle(e);
+            if (stateOpt.isPresent()) {
+                PokerState state = stateOpt.get();
+                runForState(state);
+            } else {
+                // No more input
+                logger.info("Shutting down the AI Runner. No more input expected.");
+                return;
             }
+        } catch (PokerInputException e) {
+            exceptionHandler.handle(e);
+        }
+    }
+
+    public void runForState(PokerState state) {
+        try {
+            // TODO: Do I want this check here or in the PokerState itself?
+            // Pros in the PokerState - can't create invalid PokerState
+            // Cons in the PokerState - Doesn't work if logic is different for other games
+            //                        - Don't like to have logic like this in the constructor,
+            //                        - It might have to be unchecked exception which I don't like
+            PokerStateUtils.validatePokerState(state, bot.getRules());
+            BotAction action = bot.nextAction(state);
+            output.handle(action);
+        } catch (PokerInputException e) {
+            exceptionHandler.handle(e);
+        } catch (Exception e) {
+            unhandledExceptionHandler.handle(e);
+        }
+    }
+
+    public void runForever() {
+        while (true) {
+            singleRun();
         }
     }
 
@@ -98,7 +111,7 @@ public class AIRunner implements AutoCloseable {
         AIRunner ai = new AIRunner(input, output, exceptionHandler, unhandledExceptionHandler, bot);
 
         // Run AI
-        ai.run();
+        ai.runForever();
 
         // AI has finished. No more input expected. Close IO.
         ai.close();
