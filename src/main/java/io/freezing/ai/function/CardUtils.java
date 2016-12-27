@@ -41,6 +41,7 @@ public class CardUtils {
         }
     }
 
+    // TODO: This is the same as height.ordinal()
     public static int getRank(CardHeight height) {
         switch (height) {
             case DEUCE: return 0;

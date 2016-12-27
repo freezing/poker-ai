@@ -38,13 +38,13 @@ public class SimpleTexasHoldEmPokerBot implements PokerBot {
         TexasHoldEmRoundState roundState = TexasHoldEmTableUtils.getRoundState(state.getTable());
         boolean isPostFlop = roundState == TexasHoldEmRoundState.TURN || roundState == TexasHoldEmRoundState.RIVER;
 
-        BotActionRationale rationale = new SimpleTexasHoldEmRationale(winProbability, expectedWin, optimalBet, currentHandStrength, state.getAmountToCall(), roundState);
+        SimpleTexasHoldEmRationale rationale = new SimpleTexasHoldEmRationale(winProbability, expectedWin, optimalBet, currentHandStrength, state.getAmountToCall(), roundState);
 
         // TODO: Handle high risk situations, i.e. ones that are potentially losing a lot of money
 
         if (winProbability > 0.9) return new RaiseAction(state.getMyStack(), rationale);
         else if (roundState == TexasHoldEmRoundState.PRE_FLOP) {
-            return findPreFlopAction(state, winProbability, currentHandStrength, expectedWin, optimalBet);
+            return findPreFlopAction(state, winProbability, currentHandStrength, expectedWin, optimalBet, rationale);
         }
         // If amount to call is very small on TURN and RIVER, just go for it (assuming there is a reasonable chance of winning)
         else if (isPostFlop && winProbability > 0.15 && currentHandStrength > 0.15 && state.getAmountToCall() < 0.05 * state.getMyStack()) return new CallAction(rationale);
@@ -66,8 +66,33 @@ public class SimpleTexasHoldEmPokerBot implements PokerBot {
         else return new FoldAction(rationale);
     }
 
-    private BotAction findPreFlopAction(PokerState state, double winProbability, double currentHandStrength, double expectedWin, double optimalBet) {
-        return null;
+    // TODO: This can be optimized if None of the calculations are used (and won't be in preflop since it makes no sense to run simulations in early stage)
+    // TODO: Use position based strategy: http://www.thepokerbank.com/strategy/hand-guide/preflop/
+    private BotAction findPreFlopAction(PokerState state, double winProbability, double currentHandStrength, double expectedWin, double optimalBet, SimpleTexasHoldEmRationale rationale) {
+        // If I have really good cards, just go for it
+        int bb3 = state.getBigBlind() * 3;
+        if (isReallyGoodPreFlop(state.getMyHand())) {
+            if (state.getAmountToCall() < bb3) return new RaiseAction(bb3, rationale);
+            else return new CallAction(rationale);
+        } else if (isGoodPreFlop(state.getMyHand())) {
+            if (state.getAmountToCall() < bb3) return new RaiseAction(bb3, rationale);
+//            else if (state.getAmountToCall() > state.getMyStack() && state.getMyStack() > bb3) return new FoldAction(rationale);
+            else return new FoldAction(rationale);
+        } else {
+            return new FoldAction(rationale);
+        }
+    }
+
+    // Good means both heights are above or equal to TEN
+    private boolean isGoodPreFlop(Hand hand) {
+        Card[] cards = hand.getCards();
+        return CardUtils.getRank(cards[0].getHeight()) >= CardUtils.getRank(CardHeight.TEN) &&
+                CardUtils.getRank(cards[1].getHeight()) >= CardUtils.getRank(CardHeight.TEN);
+    }
+
+    private boolean isReallyGoodPreFlop(Hand hand) {
+        Card[] cards = hand.getCards();
+        return CardUtils.getRank(cards[0].getHeight()) > CardUtils.getRank(CardHeight.TEN) && cards[0].getHeight() == cards[1].getHeight();
     }
 
     private Pair<Double, Double> calculateWinProbabilityAndCurrentStrength(Table table, Hand hand, int totalNumberOfPlayers) {
