@@ -10,7 +10,9 @@ import io.freezing.ai.bot.action.impl.RaiseAction;
 import io.freezing.ai.domain.*;
 import io.freezing.ai.function.CardUtils;
 import io.freezing.ai.function.RandomUtils;
+import io.freezing.ai.function.TexasHoldEmTableUtils;
 import io.freezing.ai.rules.impl.texasholdem.TexasHoldEmRules;
+import javafx.util.Pair;
 
 import java.util.Random;
 
@@ -27,12 +29,19 @@ public class SimpleTexasHoldEmPokerBot implements PokerBot {
 
     @Override
     public BotAction nextAction(PokerState state) {
-        double winProbability = calculateWinProbability(state.getTable(), state.getMyHand(), state.getTotalNumberOfPlayers());
+        Pair<Double, Double> winProbabilityAndCurrentStrength = calculateWinProbabilityAndCurrentStrength(state.getTable(), state.getMyHand(), state.getTotalNumberOfPlayers());
+        double winProbability = winProbabilityAndCurrentStrength.getKey();
+        double currentHandStrength = winProbabilityAndCurrentStrength.getValue();
         double expectedWin = winProbability * state.getTotalPot() + (winProbability - 1.0) * state.getAmountToCall();
         double optimalBet = state.getMyStack() * state.getMyStack() * winProbability / (state.getMyStack() + state.getTotalPot() - winProbability * state.getMyStack());
-        BotActionRationale rationale = new SimpleTexasHoldEmRationale(winProbability, expectedWin, optimalBet);
+        BotActionRationale rationale = new SimpleTexasHoldEmRationale(winProbability, expectedWin, optimalBet, currentHandStrength);
+
+        // Do I want this in the rationale?
+        TexasHoldEmRoundState roundState = TexasHoldEmTableUtils.getRoundState(state.getTable());
 
         if (winProbability > 0.9) return new RaiseAction(state.getMyStack(), rationale);
+        // In the late state, give more weight to the currentHandStrength, i.e. fold if don't have strong enough hand
+        else if ((roundState == TexasHoldEmRoundState.TURN || roundState == TexasHoldEmRoundState.RIVER) && currentHandStrength < 0.5) return new FoldAction(rationale);
         else if (optimalBet > state.getAmountToCall() + state.getBigBlind()) return new RaiseAction(Math.min(optimalBet, state.getMyStack()), rationale);
         else if (optimalBet > state.getAmountToCall()) return new CallAction(state.getAmountToCall(), rationale);
         else if (expectedWin > 0.1 * state.getMyStack()) return new CallAction(state.getAmountToCall(), rationale);
@@ -43,7 +52,7 @@ public class SimpleTexasHoldEmPokerBot implements PokerBot {
         else return new FoldAction(rationale);
     }
 
-    private double calculateWinProbability(Table table, Hand hand, int totalNumberOfPlayers) {
+    private Pair<Double, Double> calculateWinProbabilityAndCurrentStrength(Table table, Hand hand, int totalNumberOfPlayers) {
         // Initialize here, we want to reuse the same array for performance reasons
         Hand opponents[] = new Hand[totalNumberOfPlayers - 1];
 
@@ -56,6 +65,8 @@ public class SimpleTexasHoldEmPokerBot implements PokerBot {
         // Monte-Carlo
         int monteCarloIterations = config.getMonteCarloIterations();
         int wins = 0;
+        int currentWins = 0;
+
         while (monteCarloIterations-- > 0) {
             // Shuffle the existing array due to performance reasons (it's not important to keep previous states)
             RandomUtils.shuffleArray(hiddenCards, rnd, 2 * hiddenCardCodes.length * 2);
@@ -64,8 +75,12 @@ public class SimpleTexasHoldEmPokerBot implements PokerBot {
 
             // Find winner hand (by reference)
             if (findWinner(monteCarloTable, hand, opponents).getWholeHand().getHand() == hand) wins++;
+            if (findWinner(table, hand, opponents).getWholeHand().getHand() == hand) currentWins++;
         }
-        return (double)(wins) / (double)(config.getMonteCarloIterations());
+        return new Pair<>(
+                (double)(wins) / (double)(config.getMonteCarloIterations()),
+                (double)(currentWins) / (double)(config.getMonteCarloIterations())
+        );
     }
 
     private Table assignCardsToTable(int offset, Card[] hiddenCards, Table table) {

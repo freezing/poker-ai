@@ -4,4 +4,5 @@ public interface BotActionRationale {
     double getWinProbability();
     double getExpectedWin();
     double getOptimalBet();
+    double getCurrentHandStrength();
 }
