@@ -91,7 +91,8 @@ public class TexasHoldEmEval {
         long leftovers = hand ^ categoryPattern;
 
         // Remove 2 weakest cards (by number)
-        long upTo5Leftovers = removeLeastSignificantCards(leftovers, 2);
+        int toRemove = Math.max(0, BitUtils.countSetBits(leftovers) - 5);
+        long upTo5Leftovers = removeLeastSignificantCards(leftovers, toRemove);
 
         // Kicker code is the folded leftover cards (i.e. numbers only)
         int kickerCode = foldHandNumbers(upTo5Leftovers);

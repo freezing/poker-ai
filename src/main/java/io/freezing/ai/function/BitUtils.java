@@ -9,4 +9,12 @@ public class BitUtils {
         n = n + (n >> 16);
         return n & 0x0000003F;
     }
+
+    public static int countSetBits(long n) {
+        return
+                countSetBits((int)((n      ) & 0xFFFF)) +
+                countSetBits((int)((n >> 16) & 0xFFFF)) +
+                countSetBits((int)((n >> 32) & 0xFFFF)) +
+                countSetBits((int)((n >> 48) & 0xFFFF));
+    }
 }
