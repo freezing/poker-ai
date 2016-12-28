@@ -10,7 +10,7 @@ import io.freezing.ai.io.error.UnhandledExceptionHandler;
 import io.freezing.ai.io.error.impl.StandardUnhandledExceptionHandler;
 import io.freezing.ai.io.input.PokerInput;
 import io.freezing.ai.io.error.PokerInputExceptionHandler;
-import io.freezing.ai.io.input.stdin.StandardPokerInput;
+import io.freezing.ai.io.input.stream.StandardStreamPokerInput;
 import io.freezing.ai.io.message.impl.StandardPokerMessageHandler;
 import io.freezing.ai.io.output.PokerOutput;
 import io.freezing.ai.io.output.StandardOutputBotActionHandler;
@@ -41,7 +41,7 @@ public class AIRunner implements AutoCloseable {
     public void singleRun() {
         try {
             // TODO: Can I do something nice as using Extractors in Scala?
-            Optional<PokerState> stateOpt = this.input.getNextState();
+            Optional<PokerState> stateOpt = this.input.getState();
 
             if (stateOpt.isPresent()) {
                 PokerState state = stateOpt.get();
@@ -69,7 +69,7 @@ public class AIRunner implements AutoCloseable {
     }
 
     public static void main(String[] args) throws Exception {
-        PokerInput input = new StandardPokerInput(
+        PokerInput input = new StandardStreamPokerInput(
                 System.in,
                 new TexasHoldemInputParser(),
                 new StandardPokerMessageHandler<>(System.out)

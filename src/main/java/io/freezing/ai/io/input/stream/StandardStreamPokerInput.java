@@ -1,4 +1,4 @@
-package io.freezing.ai.io.input.stdin;
+package io.freezing.ai.io.input.stream;
 
 import io.freezing.ai.domain.PokerState;
 import io.freezing.ai.exception.input.PokerInputException;
@@ -11,12 +11,13 @@ import java.io.InputStream;
 import java.util.Scanner;
 import java.util.Optional;
 
-public class StandardPokerInput implements PokerInput {
+// Not going to be used, so I'll probably remove it when I feel comfortable that I don't need it
+public class StandardStreamPokerInput implements PokerInput {
     private final PokerInputParser parser;
     private final PokerMessageHandler<StringPokerMessage> pokerMessageHandler;
     private final Scanner sc;
 
-    public StandardPokerInput(InputStream is,
+    public StandardStreamPokerInput(InputStream is,
                               PokerInputParser parser,
                               PokerMessageHandler<StringPokerMessage> pokerMessageHandler) {
         this.sc = new Scanner(is);
@@ -25,7 +26,7 @@ public class StandardPokerInput implements PokerInput {
     }
 
     @Override
-    public Optional<PokerState> getNextState() throws PokerInputException {
+    public Optional<PokerState> getState() throws PokerInputException {
         pokerMessageHandler.handle(new StringPokerMessage(
                 String.format("Use the following format:\n%s", parser.getFormat()))
         );

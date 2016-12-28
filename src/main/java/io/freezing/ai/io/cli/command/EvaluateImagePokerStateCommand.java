@@ -9,6 +9,10 @@ public class EvaluateImagePokerStateCommand implements Command {
         this.imagePath = imagePath;
     }
 
+    public Path getImagePath() {
+        return imagePath;
+    }
+
     @Override
     public String toString() {
         return String.format("EvaluateImagePokerStateCommand(path = %s)", imagePath);
